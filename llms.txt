@@ -1,0 +1,11 @@
+# Cotaja Financiamento (cotajafinanciamento.com.br)
+
+> Cotaja Financiamento é um sistema de multicálculo de financiamento de veículos para lojistas e vendedores de carro. O lojista informa carro, CPF, telefone e CEP do cliente uma vez e vê a resposta das financeiras em tempo real: quem aprovou, a parcela e o link para passar a ficha. Slogan: "Simule o financiamento do seu cliente em menos de 3 minutos."
+
+Produto da Sena Negócios Hub. Atendimento digital em todo o Brasil. Contato comercial pelo WhatsApp (11) 94211-0117.
+
+## Páginas
+- [Início](https://cotajafinanciamento.com.br/): como funciona, financeiras, preço de lançamento e contato.
+
+## Relação com outros sites
+- Seguro auto e moto para o cliente final: https://cotaja.org/

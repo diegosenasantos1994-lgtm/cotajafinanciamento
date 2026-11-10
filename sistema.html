@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cotaja Financiamento — sistema</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap">
+<style>
+:root {
+  --ink:#0A0C10; --ink-2:#11141A; --ink-3:#171C24; --ink-4:#202733;
+  --brand:#FF6B2C; --brand-lt:#FF9361; --brand-dk:#C2481A;
+  --ok:#2FCB7E; --ok-lt:#7CE8B2; --bad:#F2545B;
+  --bone:#F4F6F9; --soft:#BEC7D2; --mute:#808B9B; --dim:#525D6B;
+  --line:rgba(255,107,44,.26); --line-2:rgba(244,246,249,.09); --glass:rgba(244,246,249,.035);
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --r-sm:10px; --r-md:16px; --r-lg:22px;
+  color-scheme: dark;
+}
+* { box-sizing:border-box; }
+html, body { height:100%; }
+body {
+  margin:0; background:var(--ink); color:var(--bone);
+  font-family:var(--body); font-size:16px; font-weight:400; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+h1,h2,h3 { font-family:var(--display); font-weight:800; letter-spacing:-.035em; line-height:1.1; margin:0; }
+p { margin:0; }
+a { color:inherit; }
+button, input, select { font-family:inherit; font-size:inherit; }
+[hidden] { display:none !important; }
+
+.shell { max-width:1080px; margin-inline:auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); }
+
+/* ---------- logo ---------- */
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; min-width:0; }
+.logo svg { width:32px; height:32px; flex:none; }
+.logo__w { font-family:var(--display); font-weight:800; font-size:1.18rem; letter-spacing:-.045em; line-height:1; }
+.logo__w span { color:var(--brand); }
+
+/* ---------- topo ---------- */
+.top {
+  position:sticky; top:0; z-index:20; background:rgba(10,12,16,.9); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-2);
+}
+.top__in { display:flex; align-items:center; justify-content:space-between; gap:14px; padding-block:13px; }
+.loja { display:flex; align-items:center; gap:10px; min-width:0; }
+.loja__av { width:34px; height:34px; border-radius:999px; background:rgba(255,107,44,.16); color:var(--brand); display:grid; place-items:center; font-family:var(--display); font-weight:800; font-size:.82rem; flex:none; }
+.loja__nm { font-size:.86rem; font-weight:700; line-height:1.2; min-width:0; }
+.loja__sub { font-size:.72rem; color:var(--mute); }
+
+/* ---------- navegação ---------- */
+.nav { border-bottom:1px solid var(--line-2); background:var(--ink); position:sticky; top:61px; z-index:19; }
+.nav__in { display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+.nav__in::-webkit-scrollbar { display:none; }
+.nav a {
+  padding:14px 4px; margin-right:22px; font-size:.92rem; font-weight:600; color:var(--mute);
+  text-decoration:none; white-space:nowrap; border-bottom:2px solid transparent; transition:color .2s, border-color .2s;
+}
+.nav a:hover { color:var(--soft); }
+.nav a.on { color:var(--brand); border-bottom-color:var(--brand); }
+
+/* ---------- blocos ---------- */
+.page { padding-block:30px 60px; }
+.head { margin-bottom:26px; }
+.head h1 { font-size:clamp(1.6rem,4.4vw,2.2rem); }
+.head p { color:var(--mute); margin-top:8px; font-size:.95rem; }
+
+.card { background:var(--ink-3); border:1px solid var(--line-2); border-radius:var(--r-lg); padding:26px; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.stack { display:grid; gap:16px; }
+
+/* ---------- formulário ---------- */
+.lbl { display:block; font-size:.84rem; font-weight:600; color:var(--soft); margin-bottom:7px; }
+.inp {
+  width:100%; background:var(--ink-2); border:1px solid var(--line-2); color:var(--bone);
+  border-radius:var(--r-sm); padding:14px 15px; outline:none; transition:border-color .2s, background .2s;
+}
+.inp::placeholder { color:var(--dim); }
+.inp:focus { border-color:var(--brand); background:var(--ink); }
+.inp--plate {
+  background:#F4F6F9; color:#0A0C10; font-family:var(--display); font-weight:800;
+  font-size:1.5rem; letter-spacing:.16em; text-align:center; text-transform:uppercase; border:0;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.14);
+}
+.inp--plate::placeholder { color:#9AA3AE; }
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.fieldset { display:grid; gap:16px; }
+
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:9px; border:1px solid transparent;
+  border-radius:999px; padding:15px 28px; font-weight:700; font-size:.96rem; cursor:pointer; text-decoration:none;
+  transition:background .2s, transform .2s, box-shadow .3s, border-color .2s, color .2s;
+}
+.btn--go { background:var(--brand); color:#0A0C10; }
+.btn--go:hover { background:var(--brand-lt); transform:translateY(-1px); box-shadow:0 12px 30px rgba(255,107,44,.3); }
+.btn--ghost { background:var(--glass); color:var(--bone); border-color:var(--line-2); }
+.btn--ghost:hover { border-color:rgba(244,246,249,.24); }
+.btn--sm { padding:10px 18px; font-size:.84rem; }
+.btn--wide { width:100%; }
+.btn:disabled { opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+.btn:focus-visible { outline:2px solid var(--brand-lt); outline-offset:3px; }
+
+.chips { display:flex; gap:8px; flex-wrap:wrap; }
+.chip {
+  background:var(--glass); border:1px solid var(--line-2); color:var(--soft); border-radius:999px;
+  padding:9px 17px; font-weight:600; font-size:.86rem; cursor:pointer; transition:all .2s;
+}
+.chip[aria-pressed="true"] { background:var(--brand); border-color:var(--brand); color:#0A0C10; }
+.chip:focus-visible { outline:2px solid var(--brand-lt); outline-offset:2px; }
+
+input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:6px; border-radius:999px; background:rgba(244,246,249,.1); outline:none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:24px; height:24px; border-radius:50%; background:var(--brand); border:4px solid var(--ink-3); cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.5); }
+input[type=range]::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--brand); border:4px solid var(--ink-3); cursor:pointer; }
+input[type=range]:focus-visible { outline:2px solid var(--brand-lt); outline-offset:4px; }
+.rng-lb { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:8px; }
+.rng-v { font-family:var(--display); font-weight:800; font-size:1.1rem; color:var(--brand); letter-spacing:-.03em; }
+
+/* ---------- veículo ---------- */
+.veic { display:flex; align-items:center; gap:14px; background:var(--ink-2); border:1px solid var(--line-2); border-radius:var(--r-md); padding:16px; }
+.veic__ic { width:44px; height:44px; border-radius:12px; background:rgba(255,107,44,.13); display:grid; place-items:center; flex:none; }
+.veic__ic svg { width:24px; height:24px; }
+.veic b { display:block; font-size:.98rem; font-weight:700; }
+.veic span { font-size:.84rem; color:var(--mute); }
+
+/* ---------- resultado ---------- */
+.banco {
+  position:relative; overflow:hidden; background:var(--ink-3); border:1px solid var(--line-2);
+  border-radius:var(--r-lg); padding:22px; display:grid; gap:14px;
+  transition:border-color .5s, background .5s, transform .5s cubic-bezier(.22,.68,0,1);
+}
+.banco__top { display:flex; align-items:center; gap:12px; min-width:0; }
+.banco__m { width:44px; height:44px; border-radius:13px; background:var(--ink-4); border:1px solid var(--line-2); display:grid; place-items:center; font-family:var(--display); font-weight:800; font-size:.95rem; color:var(--soft); flex:none; transition:all .5s; }
+.banco__logo { width:44px; height:44px; border-radius:13px; object-fit:contain; background:#fff; padding:5px; flex:none; }
+.banco__nm { font-size:1.02rem; font-weight:700; min-width:0; }
+.banco__body { display:grid; gap:4px; }
+.banco__wait { display:flex; align-items:center; gap:10px; color:var(--mute); font-size:.92rem; }
+.spin { width:15px; height:15px; border-radius:50%; border:2px solid rgba(244,246,249,.16); border-top-color:var(--brand); animation:spin .7s linear infinite; flex:none; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.selo { display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--ok-lt); margin-bottom:6px; }
+.selo svg { width:19px; height:19px; flex:none; }
+.banco__v { font-family:var(--display); font-weight:800; font-size:2rem; letter-spacing:-.045em; line-height:1.05; }
+.banco__u { font-size:.88rem; color:var(--soft); }
+.banco__j { font-size:.83rem; color:var(--mute); }
+.banco--ok { border-color:rgba(47,203,126,.32); }
+.banco--ok .banco__m { background:rgba(47,203,126,.16); border-color:rgba(47,203,126,.4); color:var(--ok-lt); }
+.banco--ok .banco__v { color:var(--ok-lt); }
+.banco--best { border-color:rgba(47,203,126,.6); box-shadow:0 20px 50px rgba(47,203,126,.14); }
+.banco--best::before { content:""; position:absolute; inset:-40% -20% auto -20%; height:140%; background:radial-gradient(60% 60% at 50% 0%, rgba(47,203,126,.26), transparent 70%); pointer-events:none; }
+.banco--no { opacity:.6; }
+.banco--no .banco__v { color:var(--dim); }
+.banco > * { position:relative; z-index:1; }
+.flag { align-self:start; justify-self:start; font-size:.66rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; background:var(--ok); color:#06080B; padding:5px 12px; border-radius:999px; }
+
+.bar-res { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
+.relog { font-size:.92rem; font-weight:700; color:var(--brand); }
+
+/* ---------- tabela / histórico ---------- */
+.hist { display:grid; gap:12px; }
+.hrow {
+  display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:center;
+  background:var(--ink-3); border:1px solid var(--line-2); border-radius:var(--r-md);
+  padding:16px 18px; cursor:pointer; text-align:left; width:100%; color:inherit;
+  transition:border-color .2s, transform .2s;
+}
+.hrow:hover { border-color:rgba(244,246,249,.2); transform:translateY(-2px); }
+.hrow:focus-visible { outline:2px solid var(--brand-lt); outline-offset:2px; }
+.hplate { background:#F4F6F9; color:#0A0C10; border-radius:7px; padding:7px 11px; font-family:var(--display); font-weight:800; font-size:.86rem; letter-spacing:.1em; }
+.hinfo b { display:block; font-size:.93rem; font-weight:600; }
+.hinfo span { font-size:.8rem; color:var(--mute); }
+.hval { text-align:right; }
+.hval b { font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.03em; color:var(--ok-lt); display:block; }
+.hval span { font-size:.74rem; color:var(--mute); }
+.tag { display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 9px; border-radius:999px; }
+.tag--ok { background:rgba(47,203,126,.16); color:var(--ok-lt); }
+.tag--no { background:rgba(242,84,91,.14); color:#FF8A90; }
+
+/* ---------- painel ---------- */
+.tiles { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.tile { background:var(--ink-3); border:1px solid var(--line-2); border-radius:var(--r-md); padding:20px; min-width:0; }
+.tile__l { font-size:.8rem; color:var(--mute); }
+.tile__v { font-family:var(--display); font-weight:800; font-size:1.8rem; letter-spacing:-.045em; margin-top:6px; }
+.tile--ok .tile__v { color:var(--ok-lt); }
+.tile--go .tile__v { color:var(--brand); }
+.cols { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; height:140px; margin-top:20px; }
+.col { display:grid; grid-template-rows:1fr auto; gap:8px; justify-items:center; height:100%; }
+.col i { width:100%; align-self:end; border-radius:6px 6px 2px 2px; background:linear-gradient(180deg,var(--brand),rgba(255,107,44,.3)); height:0; transition:height 1s cubic-bezier(.22,.68,0,1); }
+.col:last-child i { background:linear-gradient(180deg,var(--ok),rgba(47,203,126,.3)); }
+.col span { font-size:.74rem; color:var(--mute); }
+
+.vend { display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; padding:15px 0; border-bottom:1px solid var(--line-2); }
+.vend:last-child { border-bottom:0; }
+.vend__av { width:38px; height:38px; border-radius:999px; background:var(--ink-4); border:1px solid var(--line-2); display:grid; place-items:center; font-family:var(--display); font-weight:800; font-size:.8rem; color:var(--soft); }
+.vend b { display:block; font-size:.94rem; font-weight:600; }
+.vend span { font-size:.8rem; color:var(--mute); }
+.vend em { font-style:normal; font-family:var(--display); font-weight:800; font-size:1.1rem; letter-spacing:-.03em; }
+
+/* ---------- login ---------- */
+.login { min-height:100%; display:grid; place-items:center; padding:40px 0; }
+.login__box { width:100%; max-width:400px; }
+.login .card { padding:34px 30px; }
+.login h1 { font-size:1.7rem; margin-bottom:8px; }
+.login .sub { color:var(--mute); font-size:.93rem; margin-bottom:28px; }
+.demo-note { margin-top:18px; font-size:.82rem; color:var(--dim); text-align:center; }
+
+.aviso { background:rgba(255,107,44,.09); border:1px solid var(--line); border-radius:var(--r-md); padding:14px 16px; font-size:.85rem; color:var(--soft); }
+.aviso b { color:var(--brand-lt); }
+.nota { font-size:.82rem; color:var(--dim); margin-top:14px; }
+
+.toast {
+  position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%) translateY(14px);
+  background:var(--ink-4); border:1px solid var(--line-2); border-radius:999px; padding:13px 24px;
+  font-size:.88rem; font-weight:600; opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; z-index:50;
+  box-shadow:0 18px 44px rgba(0,0,0,.6); max-width:calc(100% - 32px); text-align:center;
+}
+.toast.on { opacity:1; transform:translateX(-50%); }
+
+@media (max-width:760px) {
+  .grid2, .row2 { grid-template-columns:1fr; }
+  .tiles { grid-template-columns:repeat(2,1fr); }
+  .card { padding:20px; }
+  .nav { top:59px; }
+  .cols { gap:8px; }
+  .hrow { grid-template-columns:auto 1fr; row-gap:10px; }
+  .hval { grid-column:1 / -1; text-align:left; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 40 40">
+    <path d="M7.6 30.4a17.5 17.5 0 1 1 24.8 0" fill="none" stroke="var(--brand)" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M12.8 20.6 L18.6 26.6 L29.4 13.4" fill="none" stroke="var(--bone)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="check" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="12" fill="var(--ok)"/>
+    <path d="M7 12.4 L10.6 16 L17 9" fill="none" stroke="#06080B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="car" viewBox="0 0 24 24">
+    <path d="M3 13.5 4.6 8.4A2.4 2.4 0 0 1 6.9 6.8h10.2a2.4 2.4 0 0 1 2.3 1.6L21 13.5M3 13.5h18M3 13.5v4.2h2.6M21 13.5v4.2h-2.6M5.6 17.7h12.8" fill="none" stroke="var(--brand)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="7.6" cy="17.7" r="1.7" fill="none" stroke="var(--brand)" stroke-width="1.6"/>
+    <circle cx="16.4" cy="17.7" r="1.7" fill="none" stroke="var(--brand)" stroke-width="1.6"/>
+  </symbol>
+</svg>
+
+<!-- ============ LOGIN ============ -->
+<section id="scr-entrar" class="shell login" hidden>
+  <div class="login__box">
+    <a class="logo" href="#entrar" style="margin-bottom:28px">
+      <svg><use href="#mark"/></svg>
+      <div class="logo__w">cotaja<span>financiamento</span></div>
+    </a>
+    <div class="card">
+      <h1>Entrar na sua loja</h1>
+      <p class="sub">Simule em todos os bancos de uma vez.</p>
+      <form id="formEntrar" class="fieldset" novalidate>
+        <div>
+          <label class="lbl" for="email">E-mail</label>
+          <input class="inp" type="email" id="email" placeholder="voce@sualoja.com.br" autocomplete="email">
+        </div>
+        <div>
+          <label class="lbl" for="senha">Senha</label>
+          <input class="inp" type="password" id="senha" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="btn btn--go btn--wide" type="submit">Entrar</button>
+      </form>
+      <p class="demo-note">Demonstração — qualquer e-mail e senha entram.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="app" hidden>
+  <header class="top">
+    <div class="shell top__in">
+      <a class="logo" href="#simular">
+        <svg><use href="#mark"/></svg>
+        <div class="logo__w">cotaja<span>financiamento</span></div>
+      </a>
+      <div class="loja">
+        <div style="text-align:right">
+          <div class="loja__nm" id="lojaNm">Auto Center Itabuna</div>
+          <div class="loja__sub" id="lojaSub">Diego · administrador</div>
+        </div>
+        <div class="loja__av">AC</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="shell nav__in">
+      <a href="#simular" data-rota="simular">Simular</a>
+      <a href="#historico" data-rota="historico">Histórico</a>
+      <a href="#painel" data-rota="painel">Painel</a>
+      <a href="#equipe" data-rota="equipe">Equipe</a>
+      <a href="#" id="sair" style="margin-left:auto">Sair</a>
+    </div>
+  </nav>
+
+  <!-- ---- SIMULAR ---- -->
+  <section id="scr-simular" class="shell page" hidden>
+    <div class="head">
+      <h1>Nova simulação</h1>
+      <p>Digite a placa. O resto vem junto.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card stack">
+        <div>
+          <label class="lbl" for="placa">Placa do veículo</label>
+          <input class="inp inp--plate" id="placa" maxlength="8" placeholder="Placa" autocomplete="off" spellcheck="false">
+        </div>
+        <div id="veicBox" hidden>
+          <div class="veic">
+            <div class="veic__ic"><svg><use href="#car"/></svg></div>
+            <div>
+              <b id="veicNm">—</b>
+              <span id="veicVal">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="row2">
+          <div>
+            <label class="lbl" for="cpf">CPF do cliente</label>
+            <input class="inp" id="cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" autocomplete="off">
+          </div>
+          <div>
+            <label class="lbl" for="fone">Telefone</label>
+            <input class="inp" id="fone" inputmode="tel" maxlength="15" placeholder="(11) 90000-0000" autocomplete="off">
+          </div>
+        </div>
+        <div class="row2">
+          <div>
+            <label class="lbl" for="nasc">Nascimento</label>
+            <input class="inp" id="nasc" inputmode="numeric" maxlength="10" placeholder="00/00/0000" autocomplete="off">
+          </div>
+          <div>
+            <label class="lbl" for="cep">CEP</label>
+            <input class="inp" id="cep" inputmode="numeric" maxlength="9" placeholder="00000-000" autocomplete="off">
+          </div>
+        </div>
+        <div>
+          <label class="lbl" for="nome">Nome do cliente</label>
+          <input class="inp" id="nome" placeholder="Como ele se apresenta" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="card stack">
+        <div>
+          <div class="rng-lb"><label class="lbl" style="margin:0" for="valor">Valor do veículo</label><span class="rng-v" id="valorOut">R$ 118.400</span></div>
+          <input type="range" id="valor" min="15000" max="400000" step="100" value="118400">
+        </div>
+        <div>
+          <div class="rng-lb"><label class="lbl" style="margin:0" for="entrada">Entrada</label><span class="rng-v" id="entradaOut">R$ 30.000</span></div>
+          <input type="range" id="entrada" min="0" max="200000" step="100" value="30000">
+        </div>
+        <div>
+          <span class="lbl">Prazo</span>
+          <div class="chips" id="prazos">
+            <button class="chip" type="button" data-n="24" aria-pressed="false">24×</button>
+            <button class="chip" type="button" data-n="36" aria-pressed="false">36×</button>
+            <button class="chip" type="button" data-n="48" aria-pressed="true">48×</button>
+            <button class="chip" type="button" data-n="60" aria-pressed="false">60×</button>
+          </div>
+        </div>
+        <div class="aviso">
+          O cliente precisa <b>autorizar a consulta</b>. A autorização fica registrada com data e hora.
+        </div>
+        <label style="display:flex; gap:11px; align-items:flex-start; font-size:.88rem; color:var(--soft); cursor:pointer">
+          <input type="checkbox" id="lgpd" style="margin-top:4px; width:18px; height:18px; accent-color:var(--brand); flex:none">
+          <span>O cliente autorizou a consulta do CPF dele nas financeiras.</span>
+        </label>
+        <button class="btn btn--go btn--wide" id="btnSimular" type="button" disabled>Simular em todos os bancos</button>
+      </div>
+    </div>
+    <p class="nota">Versão de demonstração: os bancos ainda não são consultados de verdade. Os valores são calculados pela Tabela Price com taxas de exemplo.</p>
+  </section>
+
+  <!-- ---- RESULTADO ---- -->
+  <section id="scr-resultado" class="shell page" hidden>
+    <div class="head">
+      <h1>Resultado</h1>
+      <p id="resSub">—</p>
+    </div>
+
+    <div class="bar-res">
+      <div class="veic" style="flex:1; min-width:260px">
+        <div class="veic__ic"><svg><use href="#car"/></svg></div>
+        <div>
+          <b id="resVeic">—</b>
+          <span id="resCond">—</span>
+        </div>
+      </div>
+      <div class="relog" id="relog">—</div>
+    </div>
+
+    <div class="stack" id="bancos"></div>
+
+    <div class="stack" style="margin-top:24px">
+      <div class="card" id="resumoBox" hidden>
+        <h3 style="font-size:1.1rem; margin-bottom:10px">Melhor opção</h3>
+        <p id="resumoTxt" style="color:var(--soft); font-size:.95rem"></p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px">
+          <button class="btn btn--go" type="button" id="btnZap">Mandar no WhatsApp do cliente</button>
+          <button class="btn btn--ghost" type="button" id="btnNova">Nova simulação</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---- HISTÓRICO ---- -->
+  <section id="scr-historico" class="shell page" hidden>
+    <div class="head">
+      <h1>Histórico</h1>
+      <p>Toda simulação fica guardada. A cotação de terça ainda está aqui na quinta.</p>
+    </div>
+    <div class="hist" id="hist"></div>
+  </section>
+
+  <!-- ---- PAINEL ---- -->
+  <section id="scr-painel" class="shell page" hidden>
+    <div class="head">
+      <h1>Painel da loja</h1>
+      <p>Novembro de 2026</p>
+    </div>
+    <div class="tiles">
+      <div class="tile"><div class="tile__l">Simulações</div><div class="tile__v" id="tSim">0</div></div>
+      <div class="tile tile--ok"><div class="tile__l">Aprovações</div><div class="tile__v" id="tApr">0</div></div>
+      <div class="tile tile--go"><div class="tile__l">Fichas passadas</div><div class="tile__v" id="tFic">0</div></div>
+      <div class="tile"><div class="tile__l">Tempo médio</div><div class="tile__v">4 min</div></div>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <h3 style="font-size:1.05rem">Simulações por mês</h3>
+      <div class="cols" id="cols">
+        <div class="col"><i data-h="38"></i><span>jun</span></div>
+        <div class="col"><i data-h="52"></i><span>jul</span></div>
+        <div class="col"><i data-h="46"></i><span>ago</span></div>
+        <div class="col"><i data-h="68"></i><span>set</span></div>
+        <div class="col"><i data-h="80"></i><span>out</span></div>
+        <div class="col"><i data-h="100"></i><span>nov</span></div>
+      </div>
+    </div>
+    <p class="nota">Números de demonstração, fora as simulações que você rodar agora.</p>
+  </section>
+
+  <!-- ---- EQUIPE ---- -->
+  <section id="scr-equipe" class="shell page" hidden>
+    <div class="head">
+      <h1>Equipe</h1>
+      <p>Quem está rodando simulação na loja.</p>
+    </div>
+    <div class="card" id="equipe"></div>
+    <p class="nota">Vendedores ilimitados dentro da assinatura da loja.</p>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ===================== CONFIGURAÇÃO ===================== */
+  /* Para trocar os bancos, edite só esta lista.
+     logo: caminho do arquivo oficial, ex "img/bv.webp". "" usa o monograma. */
+  var BANCOS = [
+    { nome: "Safra",     mono: "SF", logo: "img/safra.webp",    taxa: 0.0169, ms: 1900, corte: 0.46 },
+    { nome: "BV",        mono: "BV", logo: "img/bv.webp",       taxa: 0.0172, ms: 2400, corte: 0.48 },
+    { nome: "C6 Bank",   mono: "C6", logo: "img/c6.webp",       taxa: 0.0179, ms: 3000, corte: 0.44 },
+    { nome: "Creditas",  mono: "CR", logo: "img/creditas.webp", taxa: 0.0185, ms: 3600, corte: 0.40 }
+  ];
+
+  /* Placas de demonstração. Placa desconhecida cai no genérico. */
+  var FROTA = {
+    "ABC1D23": { nome: "Honda Civic EXL 2.0 · 2021", valor: 118400 },
+    "BRA2E19": { nome: "Toyota Corolla XEI 2.0 · 2022", valor: 134900 },
+    "QWE1R45": { nome: "Jeep Compass Longitude · 2020", valor: 129800 },
+    "XYZ9K88": { nome: "Fiat Argo Drive 1.3 · 2023", valor: 72500 },
+    "MNO4P22": { nome: "VW Nivus Highline · 2022", valor: 118900 }
+  };
+
+  var EQUIPE = [
+    { nome: "Diego Sena", papel: "administrador", sim: 86 },
+    { nome: "Rodrigo", papel: "vendedor", sim: 74 },
+    { nome: "Edmilson", papel: "vendedor", sim: 52 },
+    { nome: "Monique", papel: "recepção", sim: 35 }
+  ];
+
+  var SEED = [
+    { placa: "BRA2E19", cliente: "Marcos Vinícius", veic: "Toyota Corolla XEI 2.0 · 2022", quando: "ontem, 16:42", melhor: 3180, banco: "BV", ok: true },
+    { placa: "XYZ9K88", cliente: "Ana Cláudia", veic: "Fiat Argo Drive 1.3 · 2023", quando: "ontem, 11:08", melhor: 1640, banco: "Safra", ok: true },
+    { placa: "QWE1R45", cliente: "Josué Ramos", veic: "Jeep Compass Longitude · 2020", quando: "2 dias atrás", melhor: 0, banco: "", ok: false },
+    { placa: "MNO4P22", cliente: "Patrícia Lemos", veic: "VW Nivus Highline · 2022", quando: "3 dias atrás", melhor: 2890, banco: "C6 Bank", ok: true }
+  ];
+
+  /* ===================== UTILITÁRIOS ===================== */
+  var $ = function (id) { return document.getElementById(id); };
+  function brl(n) { return "R$ " + Math.round(n).toLocaleString("pt-BR"); }
+  function so(v) { return (v || "").replace(/\D/g, ""); }
+
+  function parcela(pv, i, n) {
+    if (pv <= 0) return 0;
+    return pv * i / (1 - Math.pow(1 + i, -n));
+  }
+
+  var toastT = null;
+  function toast(msg) {
+    var t = $("toast");
+    t.textContent = msg;
+    t.classList.add("on");
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { t.classList.remove("on"); }, 3200);
+  }
+
+  /* guarda só o que não faz falta se sumir */
+  var LS = "aprovaja_demo_v1";
+  function ler() {
+    try {
+      var raw = localStorage.getItem(LS);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function gravar(o) {
+    try { localStorage.setItem(LS, JSON.stringify(o)); } catch (e) {}
+  }
+
+  var estado = ler() || { logado: false, hist: SEED.slice() };
+  if (!estado.hist || !estado.hist.length) estado.hist = SEED.slice();
+  function salvar() { gravar(estado); }
+
+  /* ===================== ROTEAMENTO ===================== */
+  var ROTAS = ["simular", "resultado", "historico", "painel", "equipe"];
+
+  function mostrar(rota) {
+    $("scr-entrar").hidden = estado.logado;
+    $("app").hidden = !estado.logado;
+    if (!estado.logado) return;
+
+    ROTAS.forEach(function (r) {
+      var el = $("scr-" + r);
+      if (el) el.hidden = r !== rota;
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".nav a[data-rota]"), function (a) {
+      a.classList.toggle("on", a.getAttribute("data-rota") === rota || (rota === "resultado" && a.getAttribute("data-rota") === "simular"));
+    });
+    if (rota === "historico") pintarHist();
+    if (rota === "painel") pintarPainel();
+    if (rota === "equipe") pintarEquipe();
+    window.scrollTo(0, 0);
+  }
+
+  function rotaAtual() {
+    var h = (location.hash || "").replace("#", "");
+    if (!estado.logado) return "entrar";
+    return ROTAS.indexOf(h) >= 0 ? h : "simular";
+  }
+
+  function irPara(r) {
+    if (location.hash === "#" + r) mostrar(r);
+    else location.hash = r;
+  }
+
+  window.addEventListener("hashchange", function () { mostrar(rotaAtual()); });
+
+  /* ===================== LOGIN ===================== */
+  $("formEntrar").addEventListener("submit", function (e) {
+    e.preventDefault();
+    estado.logado = true;
+    salvar();
+    irPara("simular");
+    mostrar("simular");
+  });
+
+  $("sair").addEventListener("click", function (e) {
+    e.preventDefault();
+    estado.logado = false;
+    salvar();
+    mostrar("entrar");
+  });
+
+  /* ===================== SIMULAR ===================== */
+  var placa = $("placa"), veicBox = $("veicBox"), veicNm = $("veicNm"), veicVal = $("veicVal");
+  var valor = $("valor"), entrada = $("entrada"), valorOut = $("valorOut"), entradaOut = $("entradaOut");
+  var lgpd = $("lgpd"), btnSim = $("btnSimular");
+  var prazo = 48;
+  var veiculo = null;
+
+  function fmtPlaca(v) {
+    return v.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 7);
+  }
+
+  placa.addEventListener("input", function () {
+    var v = fmtPlaca(placa.value);
+    placa.value = v;
+    if (v.length === 7) buscarVeiculo(v);
+    else { veicBox.hidden = true; veiculo = null; checar(); }
+  });
+
+  function buscarVeiculo(p) {
+    var achado = FROTA[p];
+    veiculo = achado
+      ? { nome: achado.nome, valor: achado.valor }
+      : { nome: "Veículo da placa " + p, valor: parseInt(valor.value, 10) };
+    veicNm.textContent = veiculo.nome;
+    veicVal.textContent = achado ? "Tabela de referência " + brl(veiculo.valor) : "Informe o valor no campo ao lado";
+    veicBox.hidden = false;
+    if (achado) {
+      valor.value = veiculo.valor;
+      var ent = Math.min(Math.round(veiculo.valor * 0.25 / 1000) * 1000, parseInt(entrada.max, 10));
+      entrada.value = ent;
+      sincronizar();
+    }
+    checar();
+  }
+
+  function sincronizar() {
+    var v = parseInt(valor.value, 10);
+    if (parseInt(entrada.value, 10) > v) entrada.value = v;
+    valorOut.textContent = brl(v);
+    entradaOut.textContent = brl(parseInt(entrada.value, 10));
+  }
+
+  valor.addEventListener("input", sincronizar);
+  entrada.addEventListener("input", sincronizar);
+
+  $("prazos").addEventListener("click", function (e) {
+    var b = e.target.closest(".chip");
+    if (!b) return;
+    prazo = parseInt(b.getAttribute("data-n"), 10);
+    Array.prototype.forEach.call(this.querySelectorAll(".chip"), function (c) {
+      c.setAttribute("aria-pressed", c === b ? "true" : "false");
+    });
+  });
+
+  function checar() {
+    btnSim.disabled = !(placa.value.length === 7 && so($("cpf").value).length >= 11 && lgpd.checked);
+  }
+
+  ["cpf", "fone", "nasc", "cep", "nome"].forEach(function (id) {
+    $(id).addEventListener("input", checar);
+  });
+  lgpd.addEventListener("change", checar);
+
+  /* máscaras simples */
+  $("cpf").addEventListener("input", function () {
+    var d = so(this.value).slice(0, 11);
+    this.value = d.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})\.(\d{3})(\d)/, "$1.$2.$3").replace(/\.(\d{3})(\d{1,2})$/, ".$1-$2");
+  });
+  $("fone").addEventListener("input", function () {
+    var d = so(this.value).slice(0, 11);
+    this.value = d.length > 6 ? d.replace(/(\d{2})(\d{4,5})(\d{0,4})/, "($1) $2-$3").replace(/-$/, "") : d.replace(/(\d{2})(\d*)/, "($1) $2").trim();
+  });
+  $("nasc").addEventListener("input", function () {
+    var d = so(this.value).slice(0, 8);
+    this.value = d.replace(/(\d{2})(\d)/, "$1/$2").replace(/(\d{2})\/(\d{2})(\d)/, "$1/$2/$3");
+  });
+  $("cep").addEventListener("input", function () {
+    var d = so(this.value).slice(0, 8);
+    this.value = d.replace(/(\d{5})(\d)/, "$1-$2");
+  });
+
+  sincronizar();
+
+  /* ===================== RESULTADO ===================== */
+  var timers = [];
+  function limpar() { timers.forEach(clearTimeout); timers = []; }
+  function depois(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+  var ultima = null;
+
+  btnSim.addEventListener("click", function () {
+    var v = parseInt(valor.value, 10);
+    var ent = parseInt(entrada.value, 10);
+    var pv = v - ent;
+    var nome = $("nome").value.trim() || "Cliente";
+
+    /* decide quem aprova: proporção da entrada sobre o valor */
+    var prop = v > 0 ? ent / v : 0;
+    var linhas = BANCOS.map(function (b) {
+      var aprova = prop >= (b.corte - 0.3);
+      return {
+        banco: b,
+        aprova: aprova,
+        p: aprova ? parcela(pv, b.taxa, prazo) : 0
+      };
+    });
+    var aprovadas = linhas.filter(function (l) { return l.aprova; });
+    aprovadas.sort(function (a, b) { return a.p - b.p; });
+
+    ultima = {
+      placa: placa.value,
+      cliente: nome,
+      veic: veiculo ? veiculo.nome : "Veículo",
+      cond: brl(v) + " · entrada " + brl(ent) + " · " + prazo + "×",
+      linhas: linhas,
+      aprovadas: aprovadas,
+      prazo: prazo
+    };
+
+    irPara("resultado");
+    mostrar("resultado");
+    rodar();
+  });
+
+  function cartao(l) {
+    var el = document.createElement("div");
+    el.className = "banco";
+    var marca = l.banco.logo
+      ? '<img class="banco__logo" src="' + l.banco.logo + '" alt="' + l.banco.nome + '">'
+      : '<div class="banco__m">' + l.banco.mono + "</div>";
+    el.innerHTML =
+      '<div class="banco__top">' + marca + '<div class="banco__nm">' + l.banco.nome + "</div></div>" +
+      '<div class="banco__body"><div class="banco__wait"><i class="spin"></i>consultando o banco…</div></div>';
+    return el;
+  }
+
+  function pintarCartao(el, l, melhor) {
+    var body = el.querySelector(".banco__body");
+    el.classList.remove("banco--ok", "banco--no", "banco--best");
+    if (!l.aprova) {
+      el.classList.add("banco--no");
+      body.innerHTML = '<div class="banco__v">—</div><div class="banco__u">Não aprovou desta vez</div>';
+      return;
+    }
+    el.classList.add("banco--ok");
+    if (melhor) el.classList.add("banco--best");
+    body.innerHTML =
+      (melhor ? '<span class="flag">melhor parcela</span>' : "") +
+      '<span class="selo"><svg><use href="#check"/></svg>Aprovado</span>' +
+      '<div class="banco__v">' + brl(l.p) + "</div>" +
+      '<div class="banco__u">por mês em ' + ultima.prazo + " parcelas</div>" +
+      '<div class="banco__j">juros de ' + (l.banco.taxa * 100).toFixed(2).replace(".", ",") + "% ao mês</div>" +
+      (melhor ? '<button class="btn btn--go btn--sm" type="button" style="justify-self:start; margin-top:12px" data-ficha="1">Passar a ficha</button>' : "");
+  }
+
+  function rodar() {
+    if (!ultima) return;
+    limpar();
+    var cx = $("bancos");
+    cx.innerHTML = "";
+    $("resumoBox").hidden = true;
+    $("resVeic").textContent = ultima.veic;
+    $("resCond").textContent = ultima.cond;
+    $("resSub").textContent = ultima.cliente + " · placa " + ultima.placa;
+
+    var els = ultima.linhas.map(function (l) {
+      var el = cartao(l);
+      cx.appendChild(el);
+      return el;
+    });
+
+    var melhor = ultima.aprovadas.length ? ultima.aprovadas[0] : null;
+    var maxMs = ultima.linhas.reduce(function (m, l) { return Math.max(m, l.banco.ms); }, 0);
+
+    if (reduce) {
+      els.forEach(function (el, i) { pintarCartao(el, ultima.linhas[i], ultima.linhas[i] === melhor); });
+      fechar(maxMs);
+      return;
+    }
+
+    var t0 = performance.now();
+    (function tic() {
+      var dt = Math.min(maxMs, performance.now() - t0);
+      $("relog").textContent = "consultando… " + (dt / 1000).toFixed(0) + "s";
+      if (dt < maxMs) requestAnimationFrame(tic);
+    })();
+
+    els.forEach(function (el, i) {
+      depois(function () {
+        pintarCartao(el, ultima.linhas[i], ultima.linhas[i] === melhor);
+      }, ultima.linhas[i].banco.ms);
+    });
+
+    depois(function () { fechar(maxMs); }, maxMs + 350);
+  }
+
+  function fechar(maxMs) {
+    $("relog").textContent = "pronto em " + Math.round(maxMs / 1000) + " segundos";
+    var melhor = ultima.aprovadas.length ? ultima.aprovadas[0] : null;
+    var box = $("resumoBox");
+    if (!melhor) {
+      box.hidden = false;
+      $("resumoTxt").textContent = "Nenhum banco aprovou com essa entrada. Suba a entrada ou encurte o prazo e rode de novo — costuma virar.";
+    } else {
+      box.hidden = false;
+      var txt = melhor.banco.nome + " aprovou em " + brl(melhor.p) + " por mês.";
+      if (ultima.aprovadas.length > 1) {
+        var pior = ultima.aprovadas[ultima.aprovadas.length - 1];
+        txt += " É " + brl((pior.p - melhor.p) * ultima.prazo) + " a menos no total do que a outra aprovação.";
+      }
+      $("resumoTxt").textContent = txt;
+    }
+
+    /* grava no histórico */
+    estado.hist.unshift({
+      placa: ultima.placa,
+      cliente: ultima.cliente,
+      veic: ultima.veic,
+      quando: "agora",
+      melhor: melhor ? Math.round(melhor.p) : 0,
+      banco: melhor ? melhor.banco.nome : "",
+      ok: !!melhor
+    });
+    if (estado.hist.length > 40) estado.hist.length = 40;
+    salvar();
+  }
+
+  $("bancos").addEventListener("click", function (e) {
+    if (e.target.closest("[data-ficha]")) {
+      toast("Na versão completa, aqui abre o site do banco com a ficha já preenchida.");
+    }
+  });
+
+  $("btnNova").addEventListener("click", function () {
+    irPara("simular");
+    mostrar("simular");
+  });
+
+  $("btnZap").addEventListener("click", function () {
+    toast("Na versão completa, o comparativo vai pro WhatsApp do cliente.");
+  });
+
+  /* ===================== HISTÓRICO ===================== */
+  function pintarHist() {
+    var cx = $("hist");
+    cx.innerHTML = "";
+    estado.hist.forEach(function (h) {
+      var b = document.createElement("button");
+      b.className = "hrow";
+      b.type = "button";
+      b.innerHTML =
+        '<span class="hplate">' + h.placa + "</span>" +
+        '<span class="hinfo"><b>' + h.cliente + "</b><span>" + h.veic + " · " + h.quando + "</span></span>" +
+        '<span class="hval">' +
+          (h.ok
+            ? "<b>" + brl(h.melhor) + "</b><span>" + h.banco + " · por mês</span>"
+            : '<span class="tag tag--no">sem aprovação</span>') +
+        "</span>";
+      b.addEventListener("click", function () {
+        toast(h.ok ? h.banco + " aprovou em " + brl(h.melhor) + " por mês." : "Essa simulação não teve aprovação.");
+      });
+      cx.appendChild(b);
+    });
+  }
+
+  /* ===================== PAINEL ===================== */
+  function pintarPainel() {
+    var rodadas = estado.hist.length;
+    var aprov = estado.hist.filter(function (h) { return h.ok; }).length;
+    $("tSim").textContent = 243 + rodadas;
+    $("tApr").textContent = 159 + aprov;
+    $("tFic").textContent = 58;
+    Array.prototype.forEach.call(document.querySelectorAll(".cols i"), function (b, i) {
+      b.style.height = "0%";
+      setTimeout(function () { b.style.height = b.getAttribute("data-h") + "%"; }, reduce ? 0 : 80 + i * 100);
+    });
+  }
+
+  /* ===================== EQUIPE ===================== */
+  function pintarEquipe() {
+    var cx = $("equipe");
+    cx.innerHTML = "";
+    EQUIPE.forEach(function (p) {
+      var ini = p.nome.split(" ").map(function (x) { return x[0]; }).slice(0, 2).join("");
+      var d = document.createElement("div");
+      d.className = "vend";
+      d.innerHTML =
+        '<div class="vend__av">' + ini + "</div>" +
+        "<div><b>" + p.nome + "</b><span>" + p.papel + "</span></div>" +
+        "<em>" + p.sim + "</em>";
+      cx.appendChild(d);
+    });
+  }
+
+  /* ===================== INÍCIO ===================== */
+  mostrar(rotaAtual());
+})();
+</script>
+</body>
+</html>

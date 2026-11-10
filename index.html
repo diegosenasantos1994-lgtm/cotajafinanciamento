@@ -1,0 +1,924 @@
+<!doctype html><html lang="pt-BR"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cotaja Financiamento | Simule o financiamento do seu cliente em menos de 3 minutos</title>
+<meta name="description" content="Sistema de multicálculo de financiamento para lojistas de veículos. Informe carro, CPF, telefone e CEP do cliente uma vez e veja as financeiras respondendo em tempo real.">
+<link rel="canonical" href="https://cotajafinanciamento.com.br/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0A0C10">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Cotaja Financiamento">
+<meta property="og:url" content="https://cotajafinanciamento.com.br/">
+<meta property="og:title" content="Simule o financiamento do seu cliente em menos de 3 minutos">
+<meta property="og:description" content="Cotaja Financiamento: multicálculo de financiamento para lojistas, com as financeiras respondendo em tempo real.">
+<meta property="og:image" content="https://cotajafinanciamento.com.br/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FF6B2C'/%3E%3Cpath d='M18 33l9 9 19-20' fill='none' stroke='%230A0C10' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Cotaja Financiamento","alternateName":"Cotaja","description":"Sistema de multicálculo de financiamento de veículos para lojistas: informe carro, CPF, telefone e CEP do cliente uma vez e veja as financeiras respondendo em tempo real.","slogan":"Simule o financiamento do seu cliente em menos de 3 minutos.","url":"https://cotajafinanciamento.com.br/","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"pt-BR","offers":{"@type":"Offer","price":"149","priceCurrency":"BRL","description":"Preço de lançamento para as 20 primeiras lojas"},"provider":{"@type":"Organization","name":"Sena Negócios Hub","url":"https://senanegocioshub.com"}}</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quais financeiras eu consigo conectar?","acceptedAnswer":{"@type":"Answer","text":"As principais financeiras de veículo do país: BV, Safra, Itaú, Santander, C6 Bank, Bradesco, Pan, Creditas, BMG, Omni e outras. Você conecta as que já usa na sua loja."}},{"@type":"Question","name":"Como funciona o acesso às financeiras?","acceptedAnswer":{"@type":"Answer","text":"Você conecta, uma vez só, os acessos que já usa no dia a dia em cada financeira. Eles servem só para rodar as simulações das fichas da sua loja, e você desconecta quando quiser."}},{"@type":"Question","name":"E o dado do meu cliente?","acceptedAnswer":{"@type":"Answer","text":"O dado é do comprador, e a lei trata assim. A simulação só roda com a autorização dele registrada, serve para cotar o financiamento dele e nada mais, e você recebe o contrato dizendo isso por escrito."}},{"@type":"Question","name":"Consigo testar antes de pagar?","acceptedAnswer":{"@type":"Answer","text":"As vinte primeiras lojas entram com acompanhamento direto comigo. Rodamos juntos as primeiras simulações da sua loja, com cliente de verdade, antes de você decidir ficar."}},{"@type":"Question","name":"Funciona no celular?","acceptedAnswer":{"@type":"Answer","text":"Sim. O vendedor faz a simulação pelo celular, no pátio, com o cliente do lado. O portal completo roda no computador da loja."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+
+<style>
+/* Cotaja Financiamento — landing de venda para lojista e vendedor de carro.
+   Layout: o produto é o herói (demo animada da consulta multibanco sobre foto real de entrega de chave);
+   faixas escuras alternadas; uma única cor de destaque (laranja de sinal "aprovado no pátio"),
+   verde só como semântica de aprovação. Dark por escolha (mesma identidade do sistema). */
+:root {
+  --ink:#0A0C10; --ink-2:#10131A; --ink-3:#171C24; --ink-4:#212835;
+  --brand:#FF6B2C; --brand-lt:#FF9361; --brand-dk:#C2481A;
+  --ok:#2FCB7E; --ok-lt:#7CE8B2; --warn:#F5B942;
+  --bone:#F4F6F9; --soft:#C3CCD6; --mute:#8794A4; --dim:#566273;
+  --line:rgba(255,107,44,.28); --line-2:rgba(244,246,249,.09); --glass:rgba(244,246,249,.04);
+  --white:#FFFFFF;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --r-sm:10px; --r-md:16px; --r-lg:24px;
+  --ease:cubic-bezier(.22,.68,0,1);
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:var(--ink); color:var(--bone);
+  font-family:var(--body); font-size:16px; line-height:1.66;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body::after {
+  content:""; position:fixed; inset:0; z-index:40; pointer-events:none; opacity:.035; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body::before { content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:31; background:var(--ink); }
+h1,h2,h3 { font-family:var(--display); font-weight:800; line-height:1.04; margin:0; letter-spacing:-.035em; text-wrap:balance; }
+p { margin:0; }
+a { color:inherit; }
+img { max-width:100%; display:block; }
+svg { display:block; }
+
+.band { position:relative; background:var(--ink); overflow:hidden; }
+.band--alt { background:var(--ink-2); }
+.band--deep { background:#06080B; }
+.wrap {
+  position:relative; z-index:2; max-width:1140px; margin-inline:auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:96px;
+}
+.wrap--flush { padding-block:0; }
+
+.eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--brand); margin:0 0 18px; }
+.eyebrow::before { content:""; width:22px; height:2px; border-radius:2px; background:var(--brand); }
+h2.sec { font-size:clamp(1.9rem,4.6vw,3.1rem); }
+.sec-lead { color:var(--soft); margin-top:18px; max-width:40em; font-size:1.05rem; }
+
+/* logo */
+.logo { display:flex; align-items:center; gap:11px; min-width:0; text-decoration:none; }
+.logo__m { width:36px; height:36px; flex:none; }
+.logo__w { font-family:var(--display); font-weight:800; font-size:1.3rem; letter-spacing:-.045em; line-height:1; }
+.logo__w span { color:var(--brand); }
+.logo__s { font-size:.6rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--mute); margin-top:4px; }
+.logo--lg .logo__m { width:56px; height:56px; }
+.logo--lg .logo__w { font-size:2.1rem; }
+
+/* nav */
+.nav { position:sticky; top:env(safe-area-inset-top,0px); z-index:30; }
+.nav__in {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  margin-top:14px; padding:10px 10px 10px 20px;
+  background:rgba(23,28,36,.74); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--line-2); border-radius:999px;
+}
+.nav__links { display:flex; gap:26px; font-size:.88rem; font-weight:600; color:var(--soft); }
+.nav__links a { text-decoration:none; transition:color .2s; }
+.nav__links a:hover { color:var(--bone); }
+
+/* botões */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--body); font-size:.96rem; font-weight:800; text-decoration:none;
+  padding:16px 30px; border-radius:999px; border:1px solid transparent; white-space:nowrap;
+  transition:background .2s, transform .25s var(--ease), box-shadow .3s, border-color .2s;
+}
+.btn--go { background:var(--brand); color:var(--ink); box-shadow:0 10px 30px -10px rgba(255,107,44,.6); }
+.btn--go:hover { background:var(--brand-lt); transform:translateY(-2px); box-shadow:0 18px 44px -10px rgba(255,107,44,.7); }
+.btn--ghost { background:var(--glass); color:var(--bone); border-color:var(--line-2); }
+.btn--ghost:hover { border-color:rgba(244,246,249,.24); background:rgba(244,246,249,.08); }
+.btn--sm { padding:11px 20px; font-size:.86rem; }
+.btn:focus-visible, a:focus-visible, summary:focus-visible { outline:2px solid var(--brand-lt); outline-offset:3px; }
+.cta-row { display:flex; flex-wrap:wrap; gap:13px; align-items:center; margin-top:34px; }
+
+/* ---------- HERÓI ---------- */
+.hero-aura { position:absolute; inset:-30% -10% auto -10%; height:170%; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(640px 440px at 12% 14%, rgba(255,107,44,.20), transparent 64%),
+    radial-gradient(520px 380px at 88% 0%, rgba(194,72,26,.22), transparent 66%),
+    radial-gradient(760px 520px at 66% 98%, rgba(47,203,126,.10), transparent 70%); }
+.hero { display:grid; grid-template-columns:1.02fr 1fr; gap:56px; align-items:center; padding-top:40px; }
+.hero__copy { min-width:0; }
+.badge { display:inline-flex; align-items:center; gap:8px; padding:7px 14px 7px 8px; border-radius:999px; background:var(--glass); border:1px solid var(--line-2); font-size:.8rem; font-weight:600; color:var(--soft); margin-bottom:22px; }
+.badge i { width:22px; height:22px; border-radius:50%; background:rgba(47,203,126,.16); display:grid; place-items:center; }
+.badge i::after { content:""; width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 0 rgba(47,203,126,.6); animation:ping 2s infinite; }
+@keyframes ping { 0% { box-shadow:0 0 0 0 rgba(47,203,126,.55); } 80%,100% { box-shadow:0 0 0 9px rgba(47,203,126,0); } }
+.hero h1 { font-size:clamp(2.2rem,4.2vw,3rem); letter-spacing:-.045em; text-wrap:balance; }
+.hero h1 .l { display:block; }
+.hero h1 em { font-style:normal; color:var(--brand); }
+.hero .lead { font-size:1.1rem; color:var(--soft); margin-top:24px; max-width:31em; }
+.hero .lead b { color:var(--bone); font-weight:700; }
+.trust { display:flex; flex-wrap:wrap; gap:10px 24px; margin-top:32px; padding-top:22px; border-top:1px solid var(--line-2); }
+.trust span { font-size:.86rem; color:var(--mute); display:inline-flex; align-items:center; gap:9px; }
+.trust span::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--brand); flex:none; }
+
+/* palco: foto real + app sobreposto */
+.stage { position:relative; min-width:0; padding:26px 0 30px 34px; }
+.stage__photo { position:absolute; inset:0 0 70px 0; border-radius:var(--r-lg); overflow:hidden; }
+.stage__photo img { width:100%; height:100%; object-fit:cover; object-position:58% 38%; filter:saturate(.95) brightness(.8); transform:scale(1.06); }
+.anim .stage__photo img { animation:kb 22s ease-in-out infinite alternate; }
+@keyframes kb { from { transform:scale(1.06) translate(0,0); } to { transform:scale(1.16) translate(-2%,-1.5%); } }
+.stage__photo::after { content:""; position:absolute; inset:0; background:linear-gradient(200deg, rgba(10,12,16,.1) 20%, rgba(10,12,16,.85)); }
+
+.app {
+  position:relative; z-index:2; margin-top:120px; margin-left:-56px; max-width:440px;
+  background:linear-gradient(168deg,rgba(33,40,53,.96),rgba(23,28,36,.97) 46%,rgba(16,19,26,.98));
+  border:1px solid var(--line-2); border-radius:var(--r-lg);
+  box-shadow:0 46px 104px rgba(0,0,0,.78), inset 0 1px 0 rgba(244,246,249,.09);
+  overflow:hidden; backdrop-filter:blur(10px);
+}
+.app__bar { display:flex; align-items:center; gap:7px; padding:12px 16px; border-bottom:1px solid var(--line-2); }
+.app__bar i { width:9px; height:9px; border-radius:50%; background:var(--ink-4); }
+.app__bar span { margin-left:8px; font-size:.74rem; color:var(--mute); font-weight:600; letter-spacing:.04em; }
+.app__top { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:18px 20px 12px; }
+.car-foto { position:relative; width:150px; height:84px; flex:none; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,.1); box-shadow:0 10px 24px -12px rgba(0,0,0,.7); }
+.car-foto img { width:100%; height:100%; object-fit:cover; display:block; }
+.car-foto::after { content:""; position:absolute; inset:0; background:linear-gradient(105deg, transparent 35%, rgba(255,255,255,.3) 50%, transparent 65%); transform:translateX(-120%); animation:brilho 5s ease-in-out infinite; }
+@keyframes brilho { 0%, 60% { transform:translateX(-120%); } 90%, 100% { transform:translateX(120%); } }
+@media (max-width:560px) { .car-foto { width:112px; height:66px; } }
+.app__dados { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,.85fr); gap:8px; padding:0 14px 8px; }
+.dado { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:7px 10px; min-width:0; }
+.dado span { display:block; font-size:.6rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+.dado b { display:block; font-family:var(--mono); font-size:.76rem; color:var(--bone); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-height:1.3em; }
+.btn .so-pc { margin-left:-6px; }
+@media (max-width:400px) { .nav__in .logo__w { font-size:1rem; } }
+@media (max-width:350px) { .nav__in .logo__m { display:none; } }
+@media (max-width:560px) { .so-pc { display:none; } .logo__w { font-size:1.1rem; } .logo--lg .logo__w { font-size:1.5rem; } }
+@media (max-width:560px) { .app__dados { grid-template-columns:1fr; gap:6px; } .dado { display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:6px 10px; } }
+.plate { position:relative; display:inline-flex; flex-direction:column; align-items:center; background:var(--bone); color:var(--ink); border-radius:8px; padding:0 0 6px; min-width:132px; overflow:hidden; box-shadow:inset 0 -3px 0 rgba(0,0,0,.16), 0 4px 18px rgba(0,0,0,.4); }
+.plate small { width:100%; text-align:center; background:#1F4FA8; color:var(--white); font-size:.52rem; font-weight:800; letter-spacing:.2em; padding:2px 0; }
+.plate b { font-family:var(--mono); font-weight:700; font-size:1.2rem; letter-spacing:.12em; margin-top:4px; min-height:1.4em; }
+.plate b::after { content:""; display:inline-block; width:2px; height:1em; background:var(--ink); margin-left:2px; vertical-align:-2px; opacity:0; }
+.plate.typing b::after { opacity:1; animation:blink .7s steps(1) infinite; }
+@keyframes blink { 50% { opacity:0; } }
+.app__car b { display:block; font-size:.94rem; font-weight:700; }
+.app__car span { font-size:.82rem; color:var(--mute); }
+.res { padding:4px 14px 12px; display:grid; gap:9px; }
+.card-res {
+  display:grid; grid-template-columns:46px 1fr auto; gap:13px; align-items:center;
+  background:var(--glass); border:1px solid var(--line-2); border-radius:14px; padding:12px 14px;
+  transition:background .5s, border-color .5s, opacity .5s;
+}
+.card-res__m { width:46px; height:34px; border-radius:9px; background:var(--white); display:grid; place-items:center; padding:5px; }
+.card-res__m img { max-height:22px; width:auto; object-fit:contain; }
+.card-res__nm { font-size:.93rem; font-weight:700; }
+.card-res__st { font-size:.8rem; color:var(--mute); display:flex; align-items:center; gap:7px; }
+.card-res__v { text-align:right; font-variant-numeric:tabular-nums; }
+.card-res__v b { font-family:var(--display); font-size:1.2rem; font-weight:800; letter-spacing:-.03em; display:block; }
+.card-res__v span { font-size:.74rem; color:var(--mute); }
+.dots { display:inline-flex; gap:3px; }
+.dots i { width:4px; height:4px; border-radius:50%; background:var(--warn); animation:dot 1s infinite; }
+.dots i:nth-child(2) { animation-delay:.15s; } .dots i:nth-child(3) { animation-delay:.3s; }
+@keyframes dot { 0%,100% { opacity:.25; } 50% { opacity:1; } }
+.card-res[data-s="wait"] .card-res__v b { color:var(--dim); }
+.card-res[data-s="ok"] { background:linear-gradient(100deg, rgba(47,203,126,.12), rgba(47,203,126,.03)); border-color:rgba(47,203,126,.3); }
+.card-res[data-s="ok"] .card-res__st { color:var(--ok-lt); font-weight:700; }
+.card-res[data-s="best"] { background:linear-gradient(100deg, rgba(47,203,126,.22), rgba(47,203,126,.06)); border-color:rgba(47,203,126,.6); box-shadow:0 0 0 1px rgba(47,203,126,.25), 0 10px 30px -12px rgba(47,203,126,.6); }
+.card-res[data-s="best"] .card-res__st { color:var(--ok-lt); font-weight:800; }
+.card-res[data-s="best"] .card-res__v b { color:var(--ok-lt); }
+.card-res[data-s="no"] { opacity:.45; }
+.app__foot { padding:12px 20px 16px; border-top:1px solid var(--line-2); display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:.84rem; color:var(--soft); }
+.app__foot b { color:var(--ok-lt); font-weight:800; font-variant-numeric:tabular-nums; }
+.app__foot em { font-style:normal; font-size:.74rem; color:var(--dim); }
+.timer { font-family:var(--mono); font-size:.76rem; color:var(--mute); }
+
+.float-chip { position:absolute; z-index:3; display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:14px; background:rgba(16,19,26,.92); border:1px solid var(--line-2); box-shadow:0 20px 40px rgba(0,0,0,.55); font-size:.82rem; }
+.float-chip b { display:block; font-size:.88rem; }
+.float-chip span { color:var(--mute); font-size:.76rem; }
+.float-chip .ic { width:32px; height:32px; border-radius:10px; display:grid; place-items:center; background:rgba(255,107,44,.15); color:var(--brand); flex:none; }
+.float-chip--a { top:4px; right:8px; }
+.float-chip--b { bottom:0; right:26px; }
+.anim .float-chip--a { animation:bob 6s ease-in-out infinite; }
+.anim .float-chip--b { animation:bob 7s ease-in-out 1s infinite; }
+@keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+
+/* ---------- VÍDEO ---------- */
+.video-sec { display:grid; grid-template-columns:1fr auto; gap:64px; align-items:center; }
+.video-sec__txt { min-width:0; }
+.video-sec__txt ul { list-style:none; margin:26px 0 0; padding:0; display:grid; gap:12px; }
+.video-sec__txt li { display:flex; gap:12px; color:var(--soft); font-size:1rem; }
+.video-sec__txt li b { font-family:var(--mono); color:var(--brand); font-size:.86rem; min-width:3.4em; padding-top:2px; }
+.celular { position:relative; width:min(340px, 82vw); aspect-ratio:9/16; max-width:100%; border-radius:44px; padding:12px; background:linear-gradient(160deg,#2A3240,#141820); box-shadow:0 50px 110px rgba(0,0,0,.75), 0 0 0 1px rgba(244,246,249,.1), 0 0 90px -20px rgba(255,107,44,.45); }
+.celular video { width:100%; height:100%; object-fit:cover; border-radius:34px; display:block; background:var(--ink); }
+.celular::before { content:""; position:absolute; top:22px; left:50%; width:84px; height:22px; margin-left:-42px; border-radius:99px; background:#0B0D12; z-index:2; }
+.som { position:absolute; z-index:3; right:24px; bottom:24px; display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:999px; border:1px solid rgba(244,246,249,.2); background:rgba(10,12,16,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); color:var(--bone); font:700 .82rem var(--body); cursor:pointer; }
+.som:hover { border-color:var(--brand); }
+.som:focus-visible { outline:2px solid var(--brand-lt); outline-offset:3px; }
+.anim .celular { animation:bob 7s ease-in-out infinite; }
+
+/* ---------- ANTES x DEPOIS ---------- */
+.vs { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:44px; }
+.vs__col { position:relative; border-radius:var(--r-lg); padding:28px 26px 26px; min-width:0; overflow:hidden; }
+.vs__col--antes { background:var(--ink-3); border:1px solid var(--line-2); }
+.vs__col--depois { background:linear-gradient(160deg, rgba(47,203,126,.14), rgba(47,203,126,.03) 60%), var(--ink-3); border:1px solid rgba(47,203,126,.35); }
+.vs__tag { display:inline-flex; align-items:center; gap:8px; font-size:.74rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding:6px 12px; border-radius:999px; }
+.vs__col--antes .vs__tag { background:rgba(244,246,249,.06); color:var(--mute); }
+.vs__col--depois .vs__tag { background:rgba(47,203,126,.16); color:var(--ok-lt); }
+.vs h3 { font-size:1.35rem; margin:16px 0 18px; }
+.vs__visual { height:170px; position:relative; margin-bottom:20px; }
+/* antes: abas empilhadas e bagunçadas */
+.aba { position:absolute; width:62%; height:92px; border-radius:10px; background:var(--ink-4); border:1px solid var(--line-2); box-shadow:0 10px 24px rgba(0,0,0,.45); padding:10px 12px; font-size:.72rem; color:var(--mute); }
+.aba b { display:block; color:var(--soft); font-size:.78rem; margin-bottom:6px; }
+.aba i { display:block; height:7px; border-radius:4px; background:rgba(244,246,249,.08); margin-top:6px; }
+.aba:nth-child(1) { left:0; top:0; transform:rotate(-5deg); }
+.aba:nth-child(2) { left:10%; top:14px; transform:rotate(3deg); }
+.aba:nth-child(3) { left:20%; top:30px; transform:rotate(-2deg); }
+.aba:nth-child(4) { left:30%; top:48px; transform:rotate(4deg); }
+.aba:nth-child(5) { left:38%; top:64px; transform:rotate(-3deg); }
+.anim .vs__col--antes .aba { animation:tremor 3.2s ease-in-out infinite; }
+.anim .vs__col--antes .aba:nth-child(2n) { animation-delay:.4s; }
+@keyframes tremor { 0%,100% { translate:0 0; } 50% { translate:0 -4px; } }
+.relogio { position:absolute; right:0; top:0; width:74px; height:74px; border-radius:50%; background:rgba(245,185,66,.12); border:2px solid rgba(245,185,66,.5); display:grid; place-items:center; text-align:center; font-family:var(--display); font-weight:800; color:var(--warn); line-height:1; font-size:1.2rem; }
+.relogio small { display:block; font-family:var(--body); font-size:.6rem; font-weight:700; color:var(--mute); margin-top:3px; }
+/* depois: uma tela limpa */
+.uma { position:absolute; inset:0 6% 0 0; border-radius:12px; background:var(--ink-2); border:1px solid rgba(47,203,126,.35); padding:14px; display:grid; gap:8px; align-content:start; }
+.uma__row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 10px; border-radius:8px; background:var(--glass); font-size:.78rem; }
+.uma__row img { height:16px; width:auto; background:var(--white); border-radius:4px; padding:2px 4px; }
+.uma__row b { color:var(--ok-lt); font-variant-numeric:tabular-nums; }
+.uma__row--best { background:rgba(47,203,126,.16); border:1px solid rgba(47,203,126,.45); }
+.check { position:absolute; right:0; top:-6px; width:58px; height:58px; border-radius:50%; background:var(--ok); color:var(--ink); display:grid; place-items:center; font-size:1.6rem; font-weight:900; box-shadow:0 12px 30px -8px rgba(47,203,126,.8); }
+.anim .vs__col--depois.in .check { animation:pop .6s var(--ease) .3s backwards; }
+@keyframes pop { from { transform:scale(0); } to { transform:scale(1); } }
+.vs ul { list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.vs li { display:flex; gap:10px; font-size:.95rem; color:var(--soft); }
+.vs__col--antes li::before { content:"✕"; color:#E5604B; font-weight:800; flex:none; }
+.vs__col--depois li::before { content:"✓"; color:var(--ok); font-weight:800; flex:none; }
+
+/* ---------- PARA QUEM ---------- */
+.quem { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:44px; }
+.persona { position:relative; border-radius:var(--r-lg); overflow:hidden; min-height:340px; display:flex; align-items:flex-end; border:1px solid var(--line-2); }
+.persona img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); }
+.persona:hover img { transform:scale(1.06); }
+.persona::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,12,16,.05) 25%, rgba(10,12,16,.92) 80%); }
+.persona__txt { position:relative; z-index:1; padding:24px; }
+.persona__txt span { font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--brand-lt); }
+.persona__txt h3 { font-size:1.3rem; margin:8px 0 8px; }
+.persona__txt p { font-size:.9rem; color:var(--soft); }
+
+/* ---------- BANCOS ---------- */
+.bancos { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:34px; }
+.bchip--txt { font-family:var(--display); font-weight:900; font-size:1.25rem; letter-spacing:-.03em; color:var(--ink); }
+.bchip { height:86px; border-radius:var(--r-md); background:var(--white); display:grid; place-items:center; padding:18px 24px; transition:transform .35s var(--ease), box-shadow .35s; }
+.bchip img { max-height:38px; width:auto; object-fit:contain; }
+.bchip:hover { transform:translateY(-4px); box-shadow:0 18px 40px -16px rgba(255,107,44,.5); }
+.bancos-nota { font-size:.86rem; color:var(--mute); margin-top:22px; max-width:46em; }
+
+/* ---------- SOCO (foto) ---------- */
+.punch-photo { position:absolute; inset:0; z-index:0; }
+.punch-photo img { width:100%; height:100%; object-fit:cover; object-position:center 35%; filter:grayscale(.35) brightness(.38); }
+.punch-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(6,8,11,.96) 0%, rgba(6,8,11,.8) 45%, rgba(6,8,11,.35) 100%); }
+.punch { max-width:34em; }
+.punch h2 { font-size:clamp(2.2rem,6vw,3.8rem); line-height:1.02; }
+.punch h2 em { font-style:normal; color:var(--brand); }
+.punch p { color:var(--soft); margin-top:24px; font-size:1.06rem; }
+.stats { display:grid; grid-template-columns:repeat(2,minmax(0,220px)); gap:18px; margin-top:34px; }
+.stat { border-left:2px solid var(--brand); padding:4px 0 4px 18px; }
+.stat b { font-family:var(--display); font-size:clamp(2rem,5vw,2.8rem); font-weight:800; letter-spacing:-.04em; font-variant-numeric:tabular-nums; display:block; line-height:1.05; }
+.stat span { font-size:.86rem; color:var(--mute); }
+.fonte { font-size:.8rem; color:var(--dim); margin-top:22px; }
+
+/* ---------- PASSOS ---------- */
+.steps { position:relative; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+.steps__line { position:absolute; top:45px; left:16%; right:16%; height:2px; background:var(--line-2); z-index:0; }
+.steps__line i { display:block; height:100%; width:100%; transform-origin:0 50%; background:linear-gradient(90deg,var(--brand-dk),var(--brand-lt)); }
+.anim .steps__line i { transform:scaleX(.08); transition:transform 1.6s var(--ease) .2s; }
+.anim .steps.in .steps__line i { transform:scaleX(1); }
+.step { position:relative; z-index:1; min-width:0; background:var(--ink-3); border:1px solid var(--line-2); border-radius:var(--r-lg); padding:28px 24px; }
+.step__ic { width:58px; height:58px; border-radius:18px; display:grid; place-items:center; background:linear-gradient(140deg,var(--brand),var(--brand-dk)); color:var(--ink); margin-bottom:18px; box-shadow:0 12px 30px -10px rgba(255,107,44,.7); }
+.step__ic svg { width:28px; height:28px; }
+.step__ic path, .step__ic rect, .step__ic circle, .step__ic line { fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.step__n { font-family:var(--mono); font-size:.74rem; color:var(--brand); font-weight:700; letter-spacing:.1em; }
+.step h3 { font-size:1.18rem; margin:6px 0 10px; }
+.step p { font-size:.93rem; color:var(--mute); }
+
+/* ---------- FRENTES (com mini telas) ---------- */
+.mods { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:46px; }
+.mod { display:flex; flex-direction:column; background:var(--ink-3); border:1px solid var(--line-2); border-radius:var(--r-lg); overflow:hidden; min-width:0; transition:transform .45s var(--ease), border-color .4s; }
+.mod:hover { transform:translateY(-5px); border-color:rgba(255,107,44,.35); }
+.mod__screen { position:relative; height:210px; background:linear-gradient(160deg,var(--ink-4),var(--ink-2)); border-bottom:1px solid var(--line-2); overflow:hidden; display:grid; place-items:center; }
+.mod__body { padding:24px 24px 26px; }
+.mod h3 { font-size:1.14rem; margin-bottom:10px; }
+.mod p { font-size:.92rem; color:var(--mute); }
+/* portal: gráfico */
+.chart { width:82%; height:150px; display:flex; align-items:flex-end; gap:9px; padding-bottom:22px; position:relative; }
+.chart::after { content:""; position:absolute; left:0; right:0; bottom:20px; height:1px; background:var(--line-2); }
+.chart i { flex:1; border-radius:6px 6px 2px 2px; background:linear-gradient(180deg,var(--brand-lt),var(--brand-dk)); height:var(--h); transform-origin:bottom; }
+.chart i:nth-child(odd) { background:linear-gradient(180deg,rgba(244,246,249,.35),rgba(244,246,249,.12)); }
+.anim .chart i { transform:scaleY(.12); transition:transform 1s var(--ease); }
+.anim .mod.in .chart i { transform:scaleY(1); }
+.anim .mod.in .chart i:nth-child(2) { transition-delay:.08s; } .anim .mod.in .chart i:nth-child(3) { transition-delay:.16s; }
+.anim .mod.in .chart i:nth-child(4) { transition-delay:.24s; } .anim .mod.in .chart i:nth-child(5) { transition-delay:.32s; }
+.anim .mod.in .chart i:nth-child(6) { transition-delay:.4s; } .anim .mod.in .chart i:nth-child(7) { transition-delay:.48s; }
+.chart__lbl { position:absolute; top:-6px; left:0; font-size:.72rem; color:var(--mute); }
+.chart__lbl b { color:var(--bone); font-family:var(--display); font-size:1.05rem; display:block; }
+/* whatsapp: conversa */
+.chat { width:86%; display:grid; gap:7px; }
+.msg { max-width:82%; padding:8px 12px; border-radius:12px; font-size:.78rem; line-height:1.4; }
+.msg--in { background:var(--ink-4); color:var(--soft); justify-self:start; border-top-left-radius:4px; }
+.msg--out { background:#1F5F45; color:#E8FFF3; justify-self:end; border-top-right-radius:4px; }
+.msg--out b { color:var(--ok-lt); }
+.anim .chat .msg { opacity:.25; transform:translateY(8px); transition:opacity .5s, transform .5s var(--ease); }
+.anim .mod.in .chat .msg { opacity:1; transform:none; }
+.anim .mod.in .chat .msg:nth-child(2) { transition-delay:.5s; } .anim .mod.in .chat .msg:nth-child(3) { transition-delay:1s; } .anim .mod.in .chat .msg:nth-child(4) { transition-delay:1.5s; }
+/* app: celular com foto */
+.phone { width:118px; height:220px; margin-top:34px; border-radius:22px; border:5px solid #2A3240; background:var(--ink); overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,.6); position:relative; }
+.phone img { width:100%; height:62px; object-fit:cover; }
+.phone__ui { padding:8px; display:grid; gap:5px; }
+.phone__ui i { height:16px; border-radius:5px; background:var(--glass); border:1px solid var(--line-2); }
+.phone__ui i.ok { background:rgba(47,203,126,.25); border-color:rgba(47,203,126,.5); }
+.phone__plate { font-family:var(--mono); font-size:.6rem; font-weight:700; background:var(--bone); color:var(--ink); text-align:center; border-radius:4px; padding:2px 0; letter-spacing:.1em; }
+.anim .phone { animation:bob 6s ease-in-out infinite; }
+
+/* ---------- PREÇO ---------- */
+.price {
+  position:relative; overflow:hidden;
+  background:linear-gradient(155deg, rgba(255,107,44,.16), transparent 56%), var(--ink-3);
+  border:1px solid var(--line); border-radius:var(--r-lg); padding:46px 42px;
+  display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; margin-top:40px;
+  box-shadow:inset 0 1px 0 rgba(244,246,249,.1), 0 32px 76px rgba(0,0,0,.5);
+}
+.price::before { content:""; position:absolute; top:-60%; left:-30%; width:60%; height:220%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.06), transparent); transform:rotate(12deg); pointer-events:none; }
+.anim .price::before { animation:sheen 6s ease-in-out infinite; }
+@keyframes sheen { 0%,60% { left:-60%; } 100% { left:130%; } }
+.price__was { font-size:.9rem; color:var(--mute); text-decoration:line-through; }
+.price__v { font-family:var(--display); font-size:clamp(3rem,7vw,4.4rem); font-weight:900; line-height:1; margin-top:8px; letter-spacing:-.055em; font-variant-numeric:tabular-nums; }
+.price__v span { font-family:var(--body); font-size:1rem; font-weight:600; color:var(--mute); letter-spacing:0; }
+.price__c { font-size:.96rem; color:var(--soft); margin-top:18px; max-width:30em; }
+.price__c b { color:var(--brand-lt); font-weight:800; }
+.incl { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:20px; }
+.incl span { font-size:.86rem; color:var(--soft); display:inline-flex; align-items:center; gap:8px; }
+.incl span::before { content:"✓"; color:var(--ok); font-weight:800; }
+.vagas { margin-top:22px; max-width:340px; }
+.vagas__bar { height:8px; border-radius:99px; background:var(--glass); border:1px solid var(--line-2); overflow:hidden; }
+.vagas__bar i { display:block; height:100%; width:100%; background:linear-gradient(90deg,var(--brand-dk),var(--brand-lt)); }
+.vagas small { display:block; font-size:.78rem; color:var(--mute); margin-top:8px; }
+
+/* ---------- NOTA + FAQ ---------- */
+.note { display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:center; max-width:820px; margin:0 auto 64px; }
+.note__img { width:120px; height:120px; border-radius:50%; overflow:hidden; border:2px solid var(--line); flex:none; }
+.note__img img { width:100%; height:100%; object-fit:cover; }
+.note__q { font-family:var(--display); font-weight:700; font-size:clamp(1.25rem,2.8vw,1.7rem); line-height:1.38; letter-spacing:-.03em; }
+.note__a { font-size:.9rem; color:var(--mute); margin-top:14px; }
+.note__a b { color:var(--brand); font-weight:800; }
+.faq { margin-top:34px; display:grid; gap:11px; max-width:860px; }
+details { background:var(--ink-3); border:1px solid var(--line-2); border-radius:var(--r-md); transition:border-color .3s; }
+details[open] { border-color:var(--line); }
+summary { cursor:pointer; padding:20px 54px 20px 24px; font-size:1.02rem; font-weight:700; list-style:none; position:relative; }
+summary::-webkit-details-marker { display:none; }
+summary::after { content:"+"; position:absolute; right:22px; top:14px; color:var(--brand); font-size:1.6rem; font-weight:400; transition:transform .3s; }
+details[open] summary::after { transform:rotate(45deg); }
+details p { padding:0 24px 24px; font-size:.95rem; color:var(--mute); }
+
+/* ---------- FIM ---------- */
+.final-photo { position:absolute; inset:0; z-index:0; }
+.final-photo img { width:100%; height:100%; object-fit:cover; filter:brightness(.3) saturate(.8); }
+.final-photo::after { content:""; position:absolute; inset:0; background:radial-gradient(700px 400px at 50% 40%, rgba(255,107,44,.22), transparent 70%), linear-gradient(180deg, rgba(6,8,11,.6), rgba(6,8,11,.92)); }
+.final { text-align:center; }
+.final .logo { justify-content:center; margin-bottom:28px; }
+.final h2 { font-size:clamp(2.1rem,5.4vw,3.3rem); }
+.final p { color:var(--soft); margin:20px auto 0; max-width:32em; }
+.final .cta-row { justify-content:center; }
+.contato { font-size:.88rem; color:var(--mute); margin-top:18px; }
+.contato b { color:var(--bone); font-family:var(--mono); user-select:all; }
+.foot { display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; padding-block:28px; font-size:.82rem; color:var(--dim); border-top:1px solid var(--line-2); }
+
+/* progresso + revelação (sempre visível em repouso) */
+.progress { position:fixed; left:0; top:0; height:3px; width:100%; transform:scaleX(0); transform-origin:0 50%; background:linear-gradient(90deg,var(--brand-dk),var(--brand-lt)); z-index:45; pointer-events:none; }
+@keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+.anim .hero__copy > * { animation:rise .8s var(--ease) backwards; }
+.anim .hero__copy > :nth-child(2) { animation-delay:.08s; } .anim .hero__copy > :nth-child(3) { animation-delay:.16s; }
+.anim .hero__copy > :nth-child(4) { animation-delay:.24s; } .anim .hero__copy > :nth-child(5) { animation-delay:.32s; }
+.anim .stage { animation:rise 1s var(--ease) .2s backwards; }
+.lift { transition:transform .85s var(--ease), opacity .85s ease; }
+.anim .lift:not(.in) { opacity:.55; transform:translateY(20px); }
+
+@media (max-width:980px) {
+  .hero { grid-template-columns:1fr; gap:24px; padding-top:20px; }
+  .stage { padding:18px 0 26px; }
+  .app { margin:150px auto 0; }
+  .nav__links { display:none; }
+  .steps, .mods, .vs, .quem { grid-template-columns:1fr; gap:18px; }
+  .video-sec { grid-template-columns:1fr; gap:40px; justify-items:center; }
+  .video-sec__txt { justify-self:stretch; }
+  .persona { min-height:280px; }
+  .steps__line { display:none; }
+  .bancos { grid-template-columns:repeat(2,1fr); }
+  .bchip { height:72px; }
+  .price { grid-template-columns:1fr; gap:26px; padding:32px 24px; }
+  .wrap { padding-block:68px; }
+  .wrap--flush { padding-block:0; }
+  .note { grid-template-columns:1fr; text-align:center; justify-items:center; }
+}
+@media (max-width:520px) {
+  .float-chip--a { right:0; } .float-chip--b { display:none; }
+  .logo__s { display:none; }
+  .app { margin-top:120px; }
+  .card-res { grid-template-columns:42px 1fr auto; gap:10px; padding:11px 12px; }
+  .card-res__m { width:42px; }
+  .stats { grid-template-columns:1fr 1fr; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; animation:none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 40 40">
+    <path d="M7.6 30.4a17.5 17.5 0 1 1 24.8 0" fill="none" stroke="var(--brand)" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M12.8 20.6 L18.6 26.6 L29.4 13.4" fill="none" stroke="var(--bone)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<i class="progress" aria-hidden="true"></i>
+
+<nav class="nav">
+  <div class="wrap wrap--flush">
+    <div class="nav__in">
+      <a class="logo" href="#topo">
+        <svg class="logo__m"><use href="#mark"/></svg>
+        <div>
+          <div class="logo__w">cotaja<span>financiamento</span></div>
+          <div class="logo__s">multicálculo de financiamento</div>
+        </div>
+      </a>
+      <div class="nav__links">
+        
+        <a href="#como">Como funciona</a>
+        <a href="#frentes">O que entra</a>
+        <a href="#preco">Preço</a>
+        <a href="#perguntas">Perguntas</a>
+      </div>
+      <a class="btn btn--go btn--sm" href="sistema.html">Entrar<span class="so-pc"> no sistema</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- 1. HERÓI -->
+<div class="band" id="topo">
+  <div class="hero-aura" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero__copy">
+        <span class="badge"><i></i>Multicálculo de financiamento para lojistas</span>
+        <h1>Simule o financiamento do seu cliente <em>em menos de 3 minutos.</em></h1>
+        <p class="lead">
+          Você conecta uma vez os acessos que já usa nas financeiras. Depois é só informar carro, CPF, telefone e CEP do cliente:
+          o Cotaja Financiamento simula em todas ao mesmo tempo, em tempo real, e traz <b>quem aprovou, qual a parcela
+          e o link para passar a ficha</b>. Sem abrir sete abas. Sem perder o cliente na porta da loja.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn--go" href="sistema.html">Entrar no sistema →</a>
+          <a class="btn btn--ghost" href="https://wa.me/5511942110117?text=Oi%2C%20vi%20o%20Cotaja%20Financiamento%20e%20quero%20garantir%20uma%20das%2020%20vagas%20de%20lan%C3%A7amento.%20%5Bfeira-auto%5D" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+        <div class="trust">
+          <span>Usa os seus acessos</span>
+          <span>Simulação em tempo real</span>
+          <span>Vendedores ilimitados</span>
+          <span>Roda no celular</span>
+        </div>
+      </div>
+
+      <div class="stage" aria-label="Exemplo de tela do Cotaja Financiamento consultando os bancos">
+        <div class="stage__photo"><img src="img/atendimento-showroom.webp" alt="Vendedor atendendo um casal no showroom da loja" fetchpriority="high"></div>
+
+        <div class="float-chip float-chip--a">
+          <span class="ic" aria-hidden="true">⏱</span>
+          <div><b>Uma consulta</b><span>vários bancos de uma vez</span></div>
+        </div>
+
+        <div class="app">
+          <div class="app__bar"><i></i><i></i><i></i><span>cotaja financiamento · simulação em tempo real</span></div>
+          <div class="app__top">
+            <div class="car-foto"><img src="img/civic-demo.webp" alt="Honda Civic cinza" width="480" height="240"></div>
+            <div class="app__car">
+              <b data-digita="Honda Civic EXL 2.0 · 2021">Honda Civic EXL 2.0 · 2021</b>
+              <span>Entrada R$ 30.000 · 48x</span>
+            </div>
+          </div>
+          <div class="app__dados">
+            <div class="dado"><span>CPF</span><b data-digita="123.456.789-00">123.456.789-00</b></div>
+            <div class="dado"><span>Telefone</span><b data-digita="(11) 98765-4321">(11) 98765-4321</b></div>
+            <div class="dado"><span>CEP</span><b data-digita="01310-100">01310-100</b></div>
+          </div>
+          <div class="res" id="res">
+            <div class="card-res" data-s="best" data-v="2.703">
+              <div class="card-res__m"><img src="img/safra.webp" alt="Banco Safra"></div>
+              <div><div class="card-res__nm">Safra</div><div class="card-res__st">Melhor parcela</div></div>
+              <div class="card-res__v"><b>R$ 2.703</b><span>por mês</span></div>
+            </div>
+            <div class="card-res" data-s="ok" data-v="2.721">
+              <div class="card-res__m"><img src="img/bv.webp" alt="Banco BV"></div>
+              <div><div class="card-res__nm">BV</div><div class="card-res__st">Aprovado</div></div>
+              <div class="card-res__v"><b>R$ 2.721</b><span>por mês</span></div>
+            </div>
+            <div class="card-res" data-s="ok" data-v="2.748">
+              <div class="card-res__m"><img src="img/c6.webp" alt="C6 Bank"></div>
+              <div><div class="card-res__nm">C6 Bank</div><div class="card-res__st">Aprovado</div></div>
+              <div class="card-res__v"><b>R$ 2.748</b><span>por mês</span></div>
+            </div>
+            <div class="card-res" data-s="no" data-v="">
+              <div class="card-res__m"><img src="img/creditas.webp" alt="Creditas"></div>
+              <div><div class="card-res__nm">Creditas</div><div class="card-res__st">Não aprovou</div></div>
+              <div class="card-res__v"><b>—</b><span>&nbsp;</span></div>
+            </div>
+          </div>
+          <div class="app__foot">
+            <span>Melhor parcela: <b id="best">R$ 2.703</b></span>
+            <span class="timer" id="timer">exemplo de tela</span>
+          </div>
+        </div>
+
+        <div class="float-chip float-chip--b">
+          <span class="ic" aria-hidden="true">✓</span>
+          <div><b>Link da ficha pronto</b><span>é só passar para o banco</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1b. ANTES x DEPOIS -->
+<div class="band band--deep">
+  <div class="wrap">
+    <p class="eyebrow">Antes e depois</p>
+    <h2 class="sec">Do jeito que é hoje para do jeito que deveria ser.</h2>
+    <div class="vs">
+      <div class="vs__col vs__col--antes lift">
+        <span class="vs__tag">Hoje, sem o Cotaja Financiamento</span>
+        <h3>Sete sites, a mesma ficha, o cliente esperando.</h3>
+        <div class="vs__visual" aria-hidden="true">
+          <div class="aba"><b>Portal banco 1</b><i></i><i style="width:70%"></i></div>
+          <div class="aba"><b>Portal banco 2</b><i></i><i style="width:60%"></i></div>
+          <div class="aba"><b>Portal banco 3</b><i></i><i style="width:80%"></i></div>
+          <div class="aba"><b>Planilha de taxas</b><i></i><i style="width:50%"></i></div>
+          <div class="aba"><b>WhatsApp do gerente</b><i></i><i style="width:65%"></i></div>
+          <div class="relogio">40+<small>minutos</small></div>
+        </div>
+        <ul>
+          <li>Digita os mesmos dados em cada banco</li>
+          <li>Não sabe qual banco aprova aquele perfil</li>
+          <li>O cliente cansa e vai "pensar em casa"</li>
+        </ul>
+      </div>
+      <div class="vs__col vs__col--depois lift">
+        <span class="vs__tag">Com o Cotaja Financiamento</span>
+        <h3>Uma tela, todos os bancos, a resposta pronta.</h3>
+        <div class="vs__visual" aria-hidden="true">
+          <div class="uma">
+            <div class="uma__row uma__row--best"><img src="img/safra.webp" alt=""><span>Aprovado</span><b>R$ 2.703</b></div>
+            <div class="uma__row"><img src="img/bv.webp" alt=""><span>Aprovado</span><b>R$ 2.721</b></div>
+            <div class="uma__row"><img src="img/c6.webp" alt=""><span>Aprovado</span><b>R$ 2.748</b></div>
+          </div>
+          <div class="check">✓</div>
+        </div>
+        <ul>
+          <li>Conecta suas financeiras uma vez e informa os dados do cliente uma vez só</li>
+          <li>Quem aprovou e a melhor parcela lado a lado</li>
+          <li>Você fecha a venda com o cliente ainda na loja</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1c. PARA QUEM É -->
+<div class="band band--alt">
+  <div class="wrap">
+    <p class="eyebrow">Para quem é</p>
+    <h2 class="sec">Feito para quem vende carro todo dia.</h2>
+    <div class="quem">
+      <div class="persona lift">
+        <img src="img/loja-seminovos.webp" alt="Loja de carros seminovos com os carros expostos" loading="lazy">
+        <div class="persona__txt"><span>Lojista</span><h3>Loja de seminovos</h3><p>Painel do mês com todas as simulações e quais viraram venda, por vendedor.</p></div>
+      </div>
+      <div class="persona lift">
+        <img src="img/vendedor-porta.webp" alt="Vendedor abrindo a porta do carro para o cliente" loading="lazy">
+        <div class="persona__txt"><span>Vendedor</span><h3>Quem atende no pátio</h3><p>Simula no celular, com o cliente do lado, e mostra a parcela na hora.</p></div>
+      </div>
+      <div class="persona lift">
+        <img src="img/repassador-celular.webp" alt="Revendedor ao lado do carro usando o celular" loading="lazy">
+        <div class="persona__txt"><span>Repassador</span><h3>Quem vende sem loja</h3><p>Mesma estrutura de uma loja grande: vários bancos e o link da ficha, sem credenciamento próprio.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. BANCOS -->
+<div class="band">
+  <div class="wrap" style="padding-block:72px">
+    <p class="eyebrow">Suas financeiras</p>
+    <h2 class="sec">Uma ficha. Todas as suas financeiras olhando ao mesmo tempo.</h2>
+    <div class="bancos lift">
+      <div class="bchip"><img src="img/bv.webp" alt="Banco BV"></div>
+      <div class="bchip"><img src="img/safra.webp" alt="Banco Safra"></div>
+      <div class="bchip"><img src="img/itau.webp" alt="Itaú"></div>
+      <div class="bchip"><img src="img/santander.webp" alt="Santander"></div>
+      <div class="bchip"><img src="img/c6.webp" alt="C6 Bank"></div>
+      <div class="bchip bchip--txt">Bradesco</div>
+      <div class="bchip"><img src="img/pan.webp" alt="Banco Pan"></div>
+      <div class="bchip"><img src="img/creditas.webp" alt="Creditas"></div>
+      <div class="bchip bchip--txt">BMG</div>
+      <div class="bchip bchip--txt">Omni</div>
+    </div>
+    <p class="bancos-nota">
+      Você conecta o acesso que já tem em cada financeira e o Cotaja Financiamento simula em todas de uma vez:
+      as principais financeiras de veículo do país, e outras entram no sistema a cada mês.
+    </p>
+  </div>
+</div>
+
+<!-- 3. O SOCO -->
+<div class="band band--deep">
+  <div class="punch-photo" aria-hidden="true"><img src="img/mesa-negociacao.webp" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="punch lift">
+      <p class="eyebrow">O problema</p>
+      <h2>O cliente que sai para <em>pensar</em> não volta.</h2>
+      <p>
+        Ele senta, gosta do carro, pergunta a parcela. Enquanto o vendedor digita os mesmos dados
+        no sétimo site, o cliente abre o celular e vê o anúncio da loja do outro lado da rua.
+        Não foi o preço do carro que perdeu a venda. Foi o tempo de resposta.
+      </p>
+      <div class="stats">
+        <div class="stat"><b data-count="26.18" data-dec="2" data-suf="%">26,18%</b><span>juros médios ao ano no financiamento de veículo</span></div>
+        <div class="stat"><b data-count="6.76" data-dec="2" data-suf="%">6,76%</b><span>de inadimplência acima de 90 dias</span></div>
+      </div>
+      <p class="fonte">
+        Com o crédito apertado, cada banco fecha a mão num tipo de cliente, e a mesma ficha passa num e cai no outro.
+        Fonte: Banco Central do Brasil, setembro de 2026.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 4. COMO FUNCIONA -->
+<div class="band band--alt" id="como">
+  <div class="wrap">
+    <p class="eyebrow">Como funciona</p>
+    <h2 class="sec">Três passos, do balcão à ficha.</h2>
+    <div class="steps lift">
+      <div class="steps__line" aria-hidden="true"><i></i></div>
+      <div class="step">
+        <div class="step__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></div>
+        <span class="step__n">PASSO 1</span>
+        <h3>Conecte suas financeiras</h3>
+        <p>Uma vez só, você conecta os acessos que já usa no dia a dia. A partir daí, o sistema simula por você.</p>
+      </div>
+      <div class="step">
+        <div class="step__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div>
+        <span class="step__n">PASSO 2</span>
+        <h3>Dados do cliente</h3>
+        <p>Carro, CPF, telefone e CEP, uma vez só. Pela placa o sistema já traz o carro e o valor de tabela, e a simulação sai para todas as financeiras ao mesmo tempo.</p>
+      </div>
+      <div class="step">
+        <div class="step__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6"/></svg></div>
+        <span class="step__n">PASSO 3</span>
+        <h3>Resposta e ficha</h3>
+        <p>Quem aprovou vem em destaque, com a parcela e o link do banco para dar continuidade.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. O QUE ENTRA -->
+<div class="band" id="frentes">
+  <div class="wrap">
+    <p class="eyebrow">O que entra na assinatura</p>
+    <h2 class="sec">Três frentes, uma conta.</h2>
+    <div class="mods">
+      <div class="mod lift">
+        <div class="mod__screen" aria-hidden="true">
+          <div class="chart">
+            <div class="chart__lbl">Simulações no mês<b>184</b></div>
+            <i style="--h:38%"></i><i style="--h:52%"></i><i style="--h:44%"></i><i style="--h:66%"></i><i style="--h:58%"></i><i style="--h:80%"></i><i style="--h:92%"></i>
+          </div>
+        </div>
+        <div class="mod__body">
+          <h3>Portal do lojista</h3>
+          <p>Simulação, comparativo, histórico e o painel do mês: quantas viraram venda e qual vendedor puxou o resultado.</p>
+        </div>
+      </div>
+      <div class="mod lift">
+        <div class="mod__screen" aria-hidden="true">
+          <div class="chat">
+            <div class="msg msg--in">Oi! Quero financiar um Onix 2022</div>
+            <div class="msg msg--out">Me passa a placa e quanto tem de entrada 🙂</div>
+            <div class="msg msg--in">QWE2R34, entrada de 15 mil</div>
+            <div class="msg msg--out">Pronto! <b>Aprovado</b>, parcela a partir de R$ 1.4xx</div>
+          </div>
+        </div>
+        <div class="mod__body">
+          <h3>Atendente no WhatsApp</h3>
+          <p>O cliente que chega sozinho é atendido na hora: pergunta o carro, roda a simulação e devolve a resposta.</p>
+        </div>
+      </div>
+      <div class="mod lift">
+        <div class="mod__screen" aria-hidden="true">
+          <div class="phone">
+            <img src="img/civic-app.webp" alt="" loading="lazy">
+            <div class="phone__ui">
+              <div class="phone__plate">Civic EXL 2021</div>
+              <i class="ok"></i><i class="ok"></i><i></i><i></i>
+            </div>
+          </div>
+        </div>
+        <div class="mod__body">
+          <h3>App do vendedor</h3>
+          <p>O vendedor está no pátio, não na mesa. A mesma simulação na palma da mão, com o cliente do lado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. PREÇO -->
+<div class="band band--alt" id="preco">
+  <div class="wrap">
+    <p class="eyebrow">Condição de lançamento</p>
+    <h2 class="sec">Menos do que uma venda perdida por mês.</h2>
+    <div class="price lift">
+      <div>
+        <div class="price__was">Depois do lançamento: R$ 199 por mês</div>
+        <div class="price__v">R$ <span class="n" data-count="149" data-dec="0">149</span> <span>/ mês por loja</span></div>
+        <p class="price__c">Preço travado para as <b>20 primeiras lojas</b>. Sem taxa de instalação e sem fidelidade: você cancela quando quiser.</p>
+        <div class="incl"><span>Vendedores ilimitados</span><span>Portal + WhatsApp + app</span><span>Acompanhamento comigo</span></div>
+        <div class="vagas">
+          <div class="vagas__bar"><i></i></div>
+          <small>Condição válida para as 20 primeiras lojas</small>
+        </div>
+      </div>
+      <div>
+        <a class="btn btn--go" href="https://wa.me/5511942110117?text=Oi%2C%20quero%20o%20Cotaja%20Financiamento%20na%20condi%C3%A7%C3%A3o%20de%20lan%C3%A7amento%20de%20R%24%20149.%20%5Bfeira-auto%5D" target="_blank" rel="noopener">Garantir minha vaga →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. FUNDADOR + PERGUNTAS -->
+<div class="band" id="perguntas">
+  <div class="wrap">
+    <div class="note lift">
+      <div class="note__img" style="display:grid;place-items:center;background:var(--ink-3)"><svg style="width:64px;height:64px"><use href="#mark"/></svg></div>
+      <div>
+        <p class="note__q">“O Cotaja Financiamento não nasceu numa reunião. Nasceu no balcão, vendo cliente bom ir embora porque a resposta do banco demorava.”</p>
+        <p class="note__a"><b>Diego Sena</b> · fundador do Cotaja Financiamento</p>
+      </div>
+    </div>
+
+    <p class="eyebrow">Perguntas diretas</p>
+    <h2 class="sec">O que o lojista pergunta primeiro.</h2>
+    <div class="faq lift">
+      <details>
+        <summary>Quais financeiras eu consigo conectar?</summary>
+        <p>As principais financeiras de veículo do país: BV, Safra, Itaú, Santander, C6 Bank, Bradesco, Pan, Creditas, BMG, Omni e outras. Você conecta as que já usa na sua loja.</p>
+      </details>
+      <details>
+        <summary>Como funciona o acesso às financeiras?</summary>
+        <p>Você conecta, uma vez só, os acessos que já usa no dia a dia em cada financeira. Eles servem só para rodar as simulações das fichas da sua loja, e você desconecta quando quiser.</p>
+      </details>
+      <details>
+        <summary>E o dado do meu cliente?</summary>
+        <p>O dado é do comprador, e a lei trata assim. A simulação só roda com a autorização dele registrada, serve para cotar o financiamento dele e nada mais, e você recebe o contrato dizendo isso por escrito.</p>
+      </details>
+      <details>
+        <summary>Consigo testar antes de pagar?</summary>
+        <p>As vinte primeiras lojas entram com acompanhamento direto comigo. Rodamos juntos as primeiras simulações da sua loja, com cliente de verdade, antes de você decidir ficar.</p>
+      </details>
+      <details>
+        <summary>Funciona no celular?</summary>
+        <p>Sim. O vendedor faz a simulação pelo celular, no pátio, com o cliente do lado. O portal completo roda no computador da loja.</p>
+      </details>
+    </div>
+  </div>
+</div>
+
+<!-- 8. FIM -->
+<div class="band band--deep">
+  <div class="final-photo" aria-hidden="true"><img src="img/aperto-de-mao.webp" alt="" loading="lazy"></div>
+  <div class="wrap final">
+    <div class="logo logo--lg">
+      <svg class="logo__m"><use href="#mark"/></svg>
+      <div class="logo__w">cotaja<span>financiamento</span></div>
+    </div>
+    <h2>Entra e roda uma simulação agora.</h2>
+    <p>O sistema está aberto para você mexer. Depois me chama no WhatsApp que eu digo quais bancos já estão conectados e se ainda tem vaga na condição de lançamento.</p>
+    <div class="cta-row">
+      <a class="btn btn--go" href="sistema.html">Entrar no sistema →</a>
+      <a class="btn btn--ghost" href="https://wa.me/5511942110117?text=Oi%2C%20quero%20ver%20o%20Cotaja%20Financiamento%20rodando.%20%5Bfeira-auto%5D" target="_blank" rel="noopener">Falar no WhatsApp</a>
+    </div>
+    <p class="contato">Diego Sena · WhatsApp <b>(11) 94211-0117</b></p>
+  </div>
+</div>
+
+<div class="band band--deep">
+  <div class="wrap wrap--flush">
+    <div class="foot">
+      <span>cotaja financiamento · multicálculo de financiamento de veículos</span>
+      <span>Uma operação Sena Negócios · Financiamento sujeito à análise de crédito</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) document.documentElement.classList.add("anim");
+
+  /* barra de progresso */
+  var pb = document.querySelector(".progress"), q = false;
+  function paint() { var h = document.documentElement.scrollHeight - innerHeight; pb.style.transform = "scaleX(" + (h > 0 ? Math.min(1, scrollY / h) : 0) + ")"; q = false; }
+  addEventListener("scroll", function () { if (!q) { q = true; requestAnimationFrame(paint); } }, { passive: true }); paint();
+
+  /* contador */
+  function contar(el) {
+    var fim = parseFloat(el.dataset.count), dec = +el.dataset.dec || 0, suf = el.dataset.suf || "", t0 = null, dur = 1400;
+    function f(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (fim * e).toFixed(dec).replace(".", ",") + suf; if (p < 1) requestAnimationFrame(f); }
+    requestAnimationFrame(f);
+  }
+
+  /* revelação ao rolar (o estado de repouso já é visível) */
+  var alvos = document.querySelectorAll(".lift");
+  if ("IntersectionObserver" in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("in");
+        e.target.querySelectorAll("[data-count]").forEach(contar);
+        io.unobserve(e.target);
+      });
+    }, { threshold: .18, rootMargin: "0px 0px -6% 0px" });
+    alvos.forEach(function (t) { io.observe(t); });
+  } else { alvos.forEach(function (t) { t.classList.add("in"); }); }
+
+  /* demo do herói: o robô preenche carro, CPF, telefone e CEP, consulta os bancos e destaca a melhor */
+  if (reduce) return;
+  
+  var dados = Array.prototype.slice.call(document.querySelectorAll("[data-digita]"));
+  var cards = Array.prototype.slice.call(document.querySelectorAll("#res .card-res"));
+  var best = document.getElementById("best"), timer = document.getElementById("timer");
+  var finais = cards.map(function (c) { return { s: c.dataset.s, st: c.querySelector(".card-res__st").textContent, v: c.querySelector(".card-res__v b").textContent }; });
+  var ordem = [1, 0, 3, 2]; // ordem em que os bancos respondem
+  var tickers = [];
+  function esperar(ms) { return new Promise(function (r) { tickers.push(setTimeout(r, ms)); }); }
+  function resetar() {
+    cards.forEach(function (c) {
+      c.dataset.s = "wait";
+      c.querySelector(".card-res__st").innerHTML = 'Consultando <span class="dots"><i></i><i></i><i></i></span>';
+      c.querySelector(".card-res__v b").textContent = "R$ —";
+    });
+    best.textContent = "…";
+    dados.forEach(function (el) { el.textContent = ""; });
+  }
+  async function ciclo() {
+    resetar();
+    timer.textContent = "preenchendo os dados…";
+    for (var d = 0; d < dados.length; d++) {
+      var v = dados[d].dataset.digita;
+      for (var i = 1; i <= v.length; i++) { dados[d].textContent = v.slice(0, i); await esperar(28); }
+      await esperar(180);
+    }
+    var t0 = performance.now();
+    var tk = setInterval(function () { timer.textContent = "consultando · " + ((performance.now() - t0) / 1000).toFixed(1) + "s"; }, 100);
+    for (var k = 0; k < ordem.length; k++) {
+      await esperar(700 + k * 250);
+      var idx = ordem[k], c = cards[idx], f = finais[idx];
+      c.dataset.s = f.s === "best" ? "ok" : f.s;
+      c.querySelector(".card-res__st").textContent = f.s === "best" ? "Aprovado" : f.st;
+      c.querySelector(".card-res__v b").textContent = f.v;
+    }
+    clearInterval(tk);
+    await esperar(400);
+    cards[0].dataset.s = "best"; cards[0].querySelector(".card-res__st").textContent = finais[0].st;
+    best.textContent = finais[0].v; timer.textContent = "exemplo de tela";
+    await esperar(5200);
+    ciclo();
+  }
+  var rodando = false;
+  async function rodar() { if (rodando) return; rodando = true; try { await ciclo(); } catch (e) {} }
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) { tickers.forEach(clearTimeout); tickers = []; rodando = false; }
+    else { setTimeout(rodar, 600); }
+  });
+  setTimeout(rodar, 1400);
+})();
+</script>
+
+</body></html>
